@@ -21,12 +21,13 @@
 
     <script type="text/ng-template" id="/coursePage.html">
       <h1>{{ courseID }}</h1>
-      <p> Description: {{response.description}} </p>
-      <p> Hardness: {{response.hard}} </p>
-      <p> Usefulness: {{response.useful}} </p>
-      <p> Interest: {{response.interest}} </p>
+      <p> Description: {{courseResponse.description}} </p>
+      <p> Hardness: {{courseResponse.hard}} </p>
+      <p> Usefulness: {{courseResponse.useful}} </p>
+      <p> Interest: {{courseResponse.interest}} </p>
       <br>
-      <p> Raw response: {{response}} </p>
+      <p> Raw course response: {{courseResponse}} </p>
+      <p> Raw review response: {{reviewResponse}} </p>
     </script>
 
 
@@ -36,8 +37,13 @@
         // Services
         //---------------
         .factory('Courses', ['$resource', function($resource){
-          return $resource('/api/');
+          return $resource('/api/course');
         }])
+
+        .factory('Reviews', ['$resource', function($resource){
+          return $resource('/api/review');
+        }])
+
         //---------------
         // Controllers
         //---------------
@@ -48,10 +54,11 @@
             $location.url('/course/' + $scope.courseID);
           }
         }])
-        .controller('CourseController', ['$scope', '$routeParams', 'Courses', '$location', function ($scope, $routeParams, Courses, $location) {
+        .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$location', function ($scope, $routeParams, Courses, Reviews, $location) {
 
           $scope.courseID = $routeParams.id;
-          $scope.response = Courses.get({cid: $routeParams.id });
+          $scope.courseResponse = Courses.get({cid: $routeParams.id });
+          $scope.reviewResponse = Reviews.get({cid: $routeParams.id });
           //$scope.courseID = Courses.get({id: $routeParams.id });
 
         }])
