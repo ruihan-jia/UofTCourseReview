@@ -37,11 +37,13 @@ router.post('/course', function(req, res, next) {
 /* GET /todos listing. */
 router.get('/review', function(req, res, next) {
   if(!req.query.cid){
+    /*
     Review.find(function (err, courses) {
       if (err) return next(err);
     
       res.json(courses);
     });
+    */
   }else {
     var querycid = req.query.cid.toUpperCase();
     console.log("retrieve reviews of " + querycid);
@@ -49,8 +51,6 @@ router.get('/review', function(req, res, next) {
     var response = {};
     var course = 'CourseInfo';
     var review = 'CourseReviews';
-    response[course] = [];
-    response[review] = [];
 
     var courseInfo;
 
@@ -58,20 +58,19 @@ router.get('/review', function(req, res, next) {
       if (err) return next(err);
       console.log(post);
       //console.log(JSON.stringify(post));
-      console.log(post.toJSON());
+      //console.log(post.toJSON());
       //console.log(post.toObject());
-      response['CourseInfo'].push(post);
+      response[course] = post;
+
+      Review.find({cid:querycid}, function (err, post2) {
+        if (err) return next(err);
+        console.log(response)
+        response[review] = post2;
+
+        console.log(response);
+	res.send(response);
+      });
     });
-
-
-    Review.find({cid:querycid}, function (err, post) {
-      if (err) return next(err);
-      //response[review].push(JSON.stringify(post));
-    });
-
-    console.log(response);
-
-    res.json(response);
   }
 });
 
