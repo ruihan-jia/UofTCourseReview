@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <title>UofT Course Review</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <ng-view></ng-view>
+
+    <!-- Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-resource.min.js"></script>
+
+    <!-- Template -->
+
+    <script type="text/ng-template" id="/homePage.html">
+      <h1>University of Toronto Course Review</h1>
+      <input type="text" ng-model="courseID" placeholder="course id">
+      <button ng-click="search()">Search</button>
+    </script>
+
+    <script type="text/ng-template" id="/coursePage.html">
+      <h1>{{ courseID }}</h1>
+      <p> Description: {{courseResponse.description}} </p>
+      <p> Hardness: {{courseResponse.hard}} </p>
+      <p> Usefulness: {{courseResponse.useful}} </p>
+      <p> Interest: {{courseResponse.interest}} </p>
+      <button id="writeReview">Write Review</button>
+      <!--<div id="modal" ng-controller="RatingController">
+        <div ng-init="rating = star.rating + 1"></div>
+        <div class="star-rating" star-rating rating-value="rating" data-max="10" on-rating-selected="rateFunction(rating)"></div>
+      </div>-->
+      <br>
+      <li ng-repeat="review in reviewResponse">
+	<p> Hard: {{review.hard}}  Useful: {{review.useful}}  Interest: {{review.interest}} </p>
+	<p> Prof: placeholder  year: {{review.year}} </p>
+        <p> comment: {{review.comment}} </p>
+      </li>
+      <br>
+      <p> Raw course response: {{courseResponse}} </p>
+      <p> Raw review response: {{reviewResponse}} </p>
+    </script>
+
+
+    <script>
+      angular.module('app', ['ngRoute', 'ngResource'])
+        //---------------
+        // Services
+        //---------------
+        .factory('Courses', ['$resource', function($resource){
+          return $resource('/api/course');
+        }])
+
+        .factory('Reviews', ['$resource', function($resource){
+          return $resource('/api/review');
+        }])
+
+        //---------------
+        // Controllers
+        //---------------
+        .controller('HomeController', ['$scope', 'Courses', '$location', function ($scope, Courses, $location) {
+          //$scope.editing = [];
+          //$scope.courses = Courses.query();
+          $scope.search = function(){
+            $location.url('/course/' + $scope.courseID);
+          }
+        }])
+        .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$location', function ($scope, $routeParams, Courses, Reviews, $location) {
+
+          $scope.courseID = $routeParams.id;
+          Reviews.get({cid: $routeParams.id }, function(data) {
+            console.log(data);
+	    console.log(data.CourseInfo);
+	    var jsonres = data;
+            $scope.courseResponse = jsonres.CourseInfo;
+            $scope.reviewResponse = jsonres.CourseReviews;
+ 
+          });
+        }])
+        .controller('RatingController', function($scope) {
+          $scope.rating = 5;
+          $scope.rateFunction = function(rating) {
+            alert('Rating selected - ' + rating);
+          };
+        })
+/*
+        .directive('starRating',
+	function() {
+	  return {
+	    restrict : 'A',
+	    template : '<ul class="rating">' + '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' + '\u2605' + '</li>' + '</ul>',
+	    scope : {
+	      ratingValue : '=',
+	      max : '=',
+	      onRatingSelected : '&'
+	    },
+            link : function(scope, elem, attrs) {
+	      var updateStars = function() {
+	        scope.stars = [];
+		  for ( var i = 0; i < scope.max; i++) {
+		    scope.stars.push({
+	  	    filled : i < scope.ratingValue
+		  });
+	        }
+	      };
+				
+	      scope.toggle = function(index) {
+	        scope.ratingValue = index + 1;
+	        scope.onRatingSelected({
+	          rating : index + 1
+	        });
+	      };
+				
+	      scope.$watch('ratingValue',
+	      function(oldVal, newVal) {
+	        if (newVal) {
+		  updateStars();
+		}
+	      });
+	    }
+	  };
+	}
+*/
+
+
+        //---------------
+        // Routes
+        //---------------
+        .config(['$routeProvider', function ($routeProvider) {
+          $routeProvider
+            .when('/', {
+              templateUrl: '/homePage.html',
+              controller: 'HomeController'
+            })
+            .when('/course/:id', {
+              templateUrl: '/coursePage.html',
+              controller: 'CourseController'
+           });
+        }]);
+    </script>
+  </body>
+</html>
