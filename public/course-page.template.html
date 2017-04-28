@@ -8,6 +8,16 @@
         <div ng-init="rating = star.rating + 1"></div>
         <div class="star-rating" star-rating rating-value="rating" data-max="10" on-rating-selected="rateFunction(rating)"></div>
       </div>-->
+
+    <div> 
+        <span ng-repeat="rating in ratings">
+          <p>{{rating.namef}}</p>
+	  <div star-rating rating-value="rating.current" max="rating.max" on-rating-selected="getSelectedRating(rating)"></div>
+	  <p>{{rating.namel}}</p>
+        </span>
+    </div>
+
+
       <br>
       <li ng-repeat="review in reviewResponse">
 	<p> Hard: {{review.hard}}  Useful: {{review.useful}}  Interest: {{review.interest}} </p>
