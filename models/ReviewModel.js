@@ -5,6 +5,7 @@ var ReviewSchema = new mongoose.Schema({
   hard: Number,
   useful: Number,
   interest: Number,
+  prof: String,
   comment: String,
   user_ip: String,
   updated_at: { type: Date, default: Date.now },

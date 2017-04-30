@@ -29,3 +29,15 @@ ul.rating {
 .rating .filled {
   color: #21568b;
 }
+
+
+.modal {
+
+  position: fixed;
+  background-color: white;
+  z-index: 1;
+}
+
+.close {
+  float: right;
+}

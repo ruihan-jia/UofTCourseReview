@@ -83,33 +83,39 @@ router.post('/review', function(req, res, next) {
   var hard = req.body.hard;
   var useful = req.body.useful;
   var interest = req.body.interest;
+  var prof = req.body.prof;
+  if (!prof)
+    prof = "";
   var comment = req.body.comment;
+  if(!comment)
+    comment = "";
   var ip = req.ip;
-  var query = "cid: '" + cid + "', year: '" + year + "', hard: '" + hard + "', useful: '" + useful + "', interest: '" + interest + "', comment: '" + comment + "', user_ip: '" + ip + "'";
+  var query = "cid: '" + cid + "', year: '" + year + "', hard: '" + hard + "', useful: '" + useful + "', interest: '" + interest + "', comment: '" + comment + "', prof: '" + prof + "', user_ip: '" + ip + "'";
 
+  console.log(query);
 
+  //check if all parameters are present
   if(!cid || !year || !hard || !useful || !interest || !comment || !ip){
-    console.log("invalid request");
-    res.json("invalid request");
+    console.log("invalid request: missing parameters");
+    res.json("invalid request: missing parameters");
   } else {
-    console.log(query);
-    Review.create({cid: cid, year: year, hard: hard, useful: useful, interest: interest, comment: comment, user_ip: ip}, function (err, post) {
-      if (err) {
-        console.log(err);
-        return next(err);
-      }
-      console.log("test");
-      res.json(post);
-    });
+    
+    //check if parameters are valid
+    if(hard > 5 || hard < 1 || useful > 5 || useful < 1 || interest > 5 || interest < 1 || year < 2000) {
+      console.log("invalid request: invalid parameters");
+      res.json("invalid request: invalid parameters");
+    } else {
 
+      Review.create({cid: cid, year: year, hard: hard, useful: useful, interest: interest, prof: prof, comment: comment, user_ip: ip}, function (err, post) {
+        if (err) {
+          console.log(err);
+          return next(err);
+        }
+        console.log("saved to database");
+        res.json(post);
+      });
+    }
   }
-
-/*
-  Review.create(req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-*/
 });
 
 /* GET /todos/id */
