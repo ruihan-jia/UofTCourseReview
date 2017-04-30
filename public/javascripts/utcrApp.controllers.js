@@ -11,7 +11,7 @@ angular.module('utcrApp')
     }])
     
 
-    .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$location', function ($scope, $routeParams, Courses, Reviews, $location) {
+    .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$cookies', '$location', function ($scope, $routeParams, Courses, Reviews, $cookies, $location) {
 
 	//initial setup
         $scope.courseID = $routeParams.id;
@@ -39,6 +39,7 @@ angular.module('utcrApp')
 	];
 
 	$scope.ReviewModal = false;
+	$scope.MsgModal = false;
 
 	$scope.years = [2017, 2016, 2015];
 
@@ -52,6 +53,16 @@ angular.module('utcrApp')
  
         });
 
+	var writtenCookie = $cookies.get('written');
+	console.log(writtenCookie);
+	if(writtenCookie == 1){
+	  $scope.written = true;
+	}
+	else {
+	  $scope.written = false;
+	}
+
+
 	//----------
 	//functions:
 	//----------
@@ -62,6 +73,11 @@ angular.module('utcrApp')
 	$scope.closeModal = function() {
 	  $scope.ReviewModal = false;
 	}
+
+	$scope.closeMsgModal = function() {
+	  $scope.MsgModal = false;
+	}
+
 
 
 	$scope.submitReview = function() {
@@ -83,11 +99,31 @@ angular.module('utcrApp')
 	  console.log(review);
 	
 	  if(review.hard != -1 && review.useful != -1 && review.interest != -1 && !angular.isUndefined($scope.selectedYear)){
-	    review.$save().then(function(res) {console.log(res)});
+	    review.$save().then(
+	      function(res) {
+		console.log(res)
+		if(res.status == 0) {
+		  $cookies.put('written', 1);
+		  $scope.written = true;
+		  $scope.MsgTitle = "Success";
+		  $scope.MsgBody = "Review submitted. Thank you!";
+		  $scope.MsgModal = true;
+		} else {
+		  $scope.MsgTitle = "Failed";
+		  $scope.MsgBody = "Review was not submitted. " + res.errmsg;
+		  $scope.MsgModal = true;
+		}
+	      }
+	    );
 	    $scope.ReviewModal = false;
 	  }
-	  else
+	  else {
+	    $scope.MsgTitle = "Failed";
+	    $scope.MsgBody = "Please select all options";
+	    $scope.MsgModal = true;
+
 	    console.log("please select all options");
+	  }
 	}
 
     	$scope.getSelectedRating = function (rating) {

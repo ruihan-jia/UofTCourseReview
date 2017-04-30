@@ -38,6 +38,12 @@ ul.rating {
   z-index: 1;
 }
 
+.modalmsg {
+  position: fixed;
+  background-color: grey;
+  z-index: 2;
+}
+
 .close {
   float: right;
 }

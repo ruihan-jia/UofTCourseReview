@@ -3,11 +3,17 @@
       <p> Hardness: {{courseResponse.hard}} </p>
       <p> Usefulness: {{courseResponse.useful}} </p>
       <p> Interest: {{courseResponse.interest}} </p>
-      <button ng-click="writeReview()">Write Review</button>
+      <button ng-click="writeReview()" ng-disabled="written">Write Review</button>
       <!--<div id="modal" ng-controller="RatingController">
         <div ng-init="rating = star.rating + 1"></div>
         <div class="star-rating" star-rating rating-value="rating" data-max="10" on-rating-selected="rateFunction(rating)"></div>
       </div>-->
+
+    <div ng-show="MsgModal" class="modalmsg"> 
+	<h2> {{MsgTitle}} </h2>
+	<span class="close" ng-click="closeMsgModal()">&times;</span>
+        <p> {{MsgBody}} </p>
+    </div>
 
 
     <div ng-show="ReviewModal" class="modal"> 

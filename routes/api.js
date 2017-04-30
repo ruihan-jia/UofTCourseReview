@@ -97,22 +97,23 @@ router.post('/review', function(req, res, next) {
   //check if all parameters are present
   if(!cid || !year || !hard || !useful || !interest || !comment || !ip){
     console.log("invalid request: missing parameters");
-    res.json("invalid request: missing parameters");
+    res.json('{"status":2, "errmsg": "missing parameters"}');
   } else {
     
     //check if parameters are valid
     if(hard > 5 || hard < 1 || useful > 5 || useful < 1 || interest > 5 || interest < 1 || year < 2000) {
       console.log("invalid request: invalid parameters");
-      res.json("invalid request: invalid parameters");
+      res.json('{"status":1, "errmsg": "invalid parameters"}');
     } else {
 
       Review.create({cid: cid, year: year, hard: hard, useful: useful, interest: interest, prof: prof, comment: comment, user_ip: ip}, function (err, post) {
         if (err) {
           console.log(err);
+          res.json({status:3, errmsg: err});
           return next(err);
         }
         console.log("saved to database");
-        res.json(post);
+        res.json({status:0, errmsg: ""});
       });
     }
   }
