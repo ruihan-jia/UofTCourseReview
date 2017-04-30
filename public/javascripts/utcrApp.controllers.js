@@ -53,10 +53,12 @@ angular.module('utcrApp')
  
         });
 
-	var writtenCookie = $cookies.get('written');
+	var cookieName = 'written' + $scope.courseID;
+	var writtenCookie = $cookies.get(cookieName);
 	console.log(writtenCookie);
 	if(writtenCookie == 1){
 	  $scope.written = true;
+	  $scope.written = false;
 	}
 	else {
 	  $scope.written = false;
@@ -103,7 +105,7 @@ angular.module('utcrApp')
 	      function(res) {
 		console.log(res)
 		if(res.status == 0) {
-		  $cookies.put('written', 1);
+		  $cookies.put(cookieName, 1);
 		  $scope.written = true;
 		  $scope.MsgTitle = "Success";
 		  $scope.MsgBody = "Review submitted. Thank you!";
