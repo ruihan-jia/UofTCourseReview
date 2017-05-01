@@ -124,31 +124,39 @@ router.post('/review', function(req, res, next) {
           }
           console.log("saved to database");
           res.json({status:0, errmsg: ""});
-        });
 
-	//at the same time, start calculating the overall result for course
-	Review.aggregate(
-	  [
-            {$match: {cid: cid}},
-	    {$group: 
-	      {
-		_id: null, 
-		averageHard: {$avg: '$hard'},
-		averageUseful: {$avg: '$useful'},
-		averageInterest: {$avg: '$interest'}
+	  //at the same time, start calculating the overall result for course
+	  Review.aggregate(
+	    [
+              {$match: {cid: cid}},
+	      {$group: 
+	        {
+		  _id: null, 
+		  averageHard: {$avg: '$hard'},
+		  averageUseful: {$avg: '$useful'},
+		  averageInterest: {$avg: '$interest'}
+	        }
 	      }
+	    ],
+	    function(err, results) {
+	      if(err) {
+	        console.log(err);
+	      }
+	      console.log(results);
+	      console.log(results[0].averageHard);
+	      console.log(results[0].averageUseful);
+	      console.log(results[0].averageInterest);
+
+	      Course.findOneAndUpdate({cid:cid}, {hard:results[0].averageHard, useful:results[0].averageUseful, interest:results[0].averageInterest}, function(err, result) {
+	        if(err) console.log('error');
+	
+	        console.log(result);
+
+	      });
 	    }
-	  ],
-	  function(err, results) {
-	    console.log(err);
-	    console.log(results);
-	  }
-	);
-
+	  );
+        });
       });
-
-
-
     }
   }
 });

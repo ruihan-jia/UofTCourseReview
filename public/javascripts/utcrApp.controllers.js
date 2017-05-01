@@ -56,7 +56,7 @@ angular.module('utcrApp')
 	var cookieName = 'written' + $scope.courseID;
 	var writtenCookie = $cookies.get(cookieName);
 	console.log(writtenCookie);
-	if(writtenCookie == 1){
+	if(writtenCookie == false) {
 	  $scope.written = true;
 	  $scope.written = false;
 	}
