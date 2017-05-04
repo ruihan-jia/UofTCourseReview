@@ -54,14 +54,25 @@ router.get('/review', function(req, res, next) {
 
     var courseInfo;
 
+    //find the course from cid
     Course.findOne({cid:querycid}, function (err, post) {
-      if (err) return next(err);
+      if (err) {
+	console.log("failed " + err);
+	return next(err);
+      }
+
+      if(!post) {
+	console.log("no match");
+
+      }
+
       console.log(post);
       //console.log(JSON.stringify(post));
       //console.log(post.toJSON());
       //console.log(post.toObject());
       response[course] = post;
 
+      //find the list of reviews of that course
       Review.find({cid:querycid}, function (err, post2) {
         if (err) return next(err);
         console.log(response)
@@ -148,7 +159,7 @@ router.post('/review', function(req, res, next) {
 	      console.log(results[0].averageInterest);
 
 	      Course.findOneAndUpdate({cid:cid}, {hard:results[0].averageHard, useful:results[0].averageUseful, interest:results[0].averageInterest}, function(err, result) {
-	        if(err) console.log('error');
+	        if(err) console.log(err);
 	
 	        console.log(result);
 
