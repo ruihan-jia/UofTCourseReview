@@ -3,6 +3,7 @@ var router = express.Router();
 
 var Course = require('../models/CourseModel.js');
 var Review = require('../models/ReviewModel.js');
+var CourseInfo = require('../models/CourseInfoModel.js');
 
 /* GET /todos listing. */
 router.get('/course', function(req, res, next) {
@@ -45,8 +46,21 @@ router.get('/review', function(req, res, next) {
     });
     */
   }else {
+
     var querycid = req.query.cid.toUpperCase();
     console.log("retrieve reviews of " + querycid);
+
+//    CourseInfo.find({id: new RegExp('^' + cid)}, function (err, post) {
+    CourseInfo.find({id: /^ECE496/}, function (err, post) {
+//      console.log("executed");
+      if(err) return next(err);
+
+      console.log("course info find: ");
+      console.log(post);
+
+
+    })
+
 
     var response = {};
     var course = 'CourseInfo';
@@ -57,7 +71,7 @@ router.get('/review', function(req, res, next) {
     //find the course from cid
     Course.findOne({cid:querycid}, function (err, post) {
       if (err) {
-	console.log("failed " + err);
+	//console.log("failed " + err);
 	return next(err);
       }
 
