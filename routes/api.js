@@ -50,51 +50,66 @@ router.get('/review', function(req, res, next) {
     var querycid = req.query.cid.toUpperCase();
     console.log("retrieve reviews of " + querycid);
 
-//    CourseInfo.find({id: new RegExp('^' + cid)}, function (err, post) {
-    CourseInfo.find({id: /^ECE496/}, function (err, post) {
-//      console.log("executed");
-      if(err) return next(err);
-
-      console.log("course info find: ");
-      console.log(post);
-
-
-    })
-
-
-    var response = {};
-    var course = 'CourseInfo';
-    var review = 'CourseReviews';
-
     var courseInfo;
 
-    //find the course from cid
-    Course.findOne({cid:querycid}, function (err, post) {
-      if (err) {
-	//console.log("failed " + err);
+    var response = {};
+    var param1 = 'CourseInfo';
+    var param2 = 'CourseRating';
+    var param3 = 'CourseReviews';
+
+
+    //find the course in course info
+    CourseInfo.find({id: new RegExp('^' + querycid)}).sort({year:-1}).exec(function (err, post) {
+      if(err) return next(err);
+      if(!post) {
+	console.log("course not found");
 	return next(err);
       }
 
-      if(!post) {
-	console.log("no match");
+      console.log("course info found");
+      //console.log(post);
 
-      }
+      response[param1] = post[0];
 
-      console.log(post);
-      //console.log(JSON.stringify(post));
-      //console.log(post.toJSON());
-      //console.log(post.toObject());
-      response[course] = post;
 
-      //find the list of reviews of that course
-      Review.find({cid:querycid}, function (err, post2) {
-        if (err) return next(err);
-        console.log(response)
-        response[review] = post2;
+      //find the course in course rating
+      Course.findOne({cid:querycid}, function (err, post) {
+        if (err) {
+  	  //console.log("failed " + err);
+  	  return next(err);
+        }
 
-        console.log(response);
-	res.send(response);
+        if(!post) {
+	  console.log("no match");
+	  //need to create new rating course
+          Course.create({cid: querycid, hard: 0, useful: 0, interest: 0}, function (err, post) {
+            if (err) {
+              console.log(err);
+              return next(err);
+            }
+            console.log("saved to database");
+	  })
+
+        }
+
+        console.log(post);
+        //console.log(JSON.stringify(post));
+        //console.log(post.toJSON());
+        //console.log(post.toObject());
+        response[param2] = post;
+
+        //find the list of reviews of that course
+        Review.find({cid:querycid}, function (err, post2) {
+          if (err) return next(err);
+          console.log(response)
+          response[param3] = post2;
+
+          console.log(response);
+	  res.send(response);
+        });
       });
+
+
     });
   }
 });
@@ -150,7 +165,7 @@ router.post('/review', function(req, res, next) {
           console.log("saved to database");
           res.json({status:0, errmsg: ""});
 
-	  //at the same time, start calculating the overall result for course
+	  //after created review, calculate the overall result for course
 	  Review.aggregate(
 	    [
               {$match: {cid: cid}},

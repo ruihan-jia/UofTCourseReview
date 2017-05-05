@@ -10,7 +10,8 @@ var CourseInfoSchema = new mongoose.Schema({
   exclusions: String,
   level: Number,
   campus: String,
-  term: String
+  term: String,
+  year: String
 });
 module.exports = mongoose.model('Course', CourseInfoSchema);
 

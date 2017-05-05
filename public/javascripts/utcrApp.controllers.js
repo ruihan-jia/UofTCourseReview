@@ -46,9 +46,10 @@ angular.module('utcrApp')
 	//get reviews from server
         Reviews.get({cid: $routeParams.id }, function(data) {
           console.log(data);
-	  console.log(data.CourseInfo);
+	  console.log(data.CourseRating);
 	  var jsonres = data;
-          $scope.courseResponse = jsonres.CourseInfo;
+          $scope.courseInfoRes = jsonres.CourseInfo;
+          $scope.courseRatingRes = jsonres.CourseRating;
           $scope.reviewResponse = jsonres.CourseReviews;
  
         });
