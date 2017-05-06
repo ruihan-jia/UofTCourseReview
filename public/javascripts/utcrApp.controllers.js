@@ -82,6 +82,9 @@ angular.module('utcrApp')
 	}
 
 
+        $scope.searchCourse = function(){
+          $location.url('/course/' + $scope.courseID);
+        }
 
 	$scope.submitReview = function() {
 	  console.log($scope.ratings[0].current);

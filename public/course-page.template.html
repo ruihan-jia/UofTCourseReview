@@ -1,3 +1,9 @@
+  
+<div class="review-body">
+  <input type="text" ng-model="courseID" placeholder="Course ID">
+  <button ng-click="searchCourse()">Search</button>
+  <br>
+
   <h1>{{ courseInfoRes.code }}</h1>
   <h2>{{courseInfoRes.name}}</h2>
   <p> Description: {{courseInfoRes.description}} </p>
@@ -41,3 +47,7 @@
   <br>
   <p> Raw course response: {{courseInfoRes}} </p>
   <p> Raw review response: {{reviewResponse}} </p>
+
+
+
+</div>

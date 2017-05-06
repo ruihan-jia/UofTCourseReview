@@ -1,11 +1,48 @@
 body {
-  padding: 50px;
+  margin: 0px;
+  margin-top: -5px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
+
+
+
+.site-header {
+  border-top: 5px solid;
+  border-bottom: 1px solid grey;
+}
+
+.site-title {
+  margin-left: 15px;
+  font-size: 100%;
+  font-weight: bold;
+}
+
+/* home page */
+
+.home-body {
+  text-align: center;
+}
+
+.course-input {
+  padding: 5px;
+  font-size:150%;
+}
+
+.course-searchBTN {
+  padding: 5px;
+  font-size:150%;
+}
+
+/* review page */
+
+.review-body {
+  margin: 10px;
+}
+
 
 .rating{
   color: #a9a9a9;
