@@ -1,53 +1,69 @@
   
 <div class="review-body">
-  <input type="text" ng-model="courseID" placeholder="Course ID">
-  <button ng-click="searchCourse()">Search</button>
+  <div class="top-search">
+    <input type="text" ng-model="courseID" placeholder="Course ID">
+    <button ng-click="searchCourse()">Search</button>
+  </div>
   <br>
 
-  <h1>{{ courseInfoRes.code }}</h1>
-  <h2>{{courseInfoRes.name}}</h2>
-  <p> Description: {{courseInfoRes.description}} </p>
-  <p> Division: {{courseInfoRes.division}} </p>
-  <p> Hardness: {{courseRatingRes.hard | number:2}} </p>
-  <p> Usefulness: {{courseRatingRes.useful | number:2}} </p>
-  <p> Interest: {{courseRatingRes.interest | number:2}} </p>
-  <button ng-click="writeReview()" ng-disabled="written">Write Review</button>
-      <!--<div id="modal" ng-controller="RatingController">
-        <div ng-init="rating = star.rating + 1"></div>
-        <div class="star-rating" star-rating rating-value="rating" data-max="10" on-rating-selected="rateFunction(rating)"></div>
-      </div>-->
-
-  <div ng-show="MsgModal" class="modalmsg"> 
-    <h2> {{MsgTitle}} </h2>
-    <span class="close" ng-click="closeMsgModal()">&times;</span>
-    <p> {{MsgBody}} </p>
+  <div class="course-section">
+    <div class="course-info">
+      <h1>{{ courseInfoRes.code }}</h1>
+      <h2>{{courseInfoRes.name}}</h2>
+      <p> Description: {{courseInfoRes.description}} </p>
+      <p> Division: {{courseInfoRes.division}} </p>
+    </div>
+    <div class="course-rating">
+      <p class="rating-text"> Hardness: </p>
+      <p class="rating-text"> {{courseRatingRes.hard | number:2}} </p>
+      <p class="rating-text"> Usefulness:</p>
+      <p class="rating-text"> {{courseRatingRes.useful | number:2}} </p>
+      <p class="rating-text"> Interest: </p>
+      <p class="rating-text"> {{courseRatingRes.interest | number:2}} </p>
+    </div>
   </div>
 
+<!-- for popups -->
 
-  <div ng-show="ReviewModal" class="modal"> 
-    <h2> Review for {{courseID}}</h2>
-    <span class="close" ng-click="closeModal()">&times;</span>
-    <span ng-repeat="rating in ratings">
-    <div star-rating rating-value="rating.current" max="rating.max" namef="rating.namef" namel="rating.namel" on-rating-selected="getSelectedRating(rating)"></div>
-    </span>
-        
-    <select ng-model="selectedYear" ng-options="x for x in years"></select>
-    <input type="text" ng-model="prof" placeholder="prof">
-    <input type="text" ng-model="reviewComment" placeholder="comment">
-    <button id="submitReview" ng-click="submitReview()">Submit Review</button>
+<div ng-show="MsgModal" class="modalmsg"> 
+  <h2> {{MsgTitle}} </h2>
+  <span class="close" ng-click="closeMsgModal()">&times;</span>
+  <p> {{MsgBody}} </p>
+</div>
+
+
+<div ng-show="ReviewModal" class="modal"> 
+  <h2> Review for {{courseID}}</h2>
+  <span class="close" ng-click="closeModal()">&times;</span>
+  <span ng-repeat="rating in ratings">
+  <div star-rating rating-value="rating.current" max="rating.max" namef="rating.namef" namel="rating.namel" on-rating-selected="getSelectedRating(rating)"></div>
+  </span>
+       
+  <select ng-model="selectedYear" ng-options="x for x in years"></select>
+  <input type="text" ng-model="prof" placeholder="prof">
+  <input type="text" ng-model="reviewComment" placeholder="comment">
+  <button id="submitReview" ng-click="submitReview()">Submit Review</button>
+</div>
+
+
+
+  <div class="review-section">
+
+    <button ng-click="writeReview()" ng-disabled="written">Write Review</button>
+
+    <br>
+    <li ng-repeat="review in reviewResponse">
+      <p> Hard: {{review.hard}}  Useful: {{review.useful}}  Interest: {{review.interest}} </p>
+      <p> Prof: {{review.prof}}  year: {{review.year}} </p>
+      <p> comment: {{review.comment}} </p>
+    </li>
+    <br>
+    <p> Raw course response: {{courseInfoRes}} </p>
+    <p> Raw review response: {{reviewResponse}} </p>
+
   </div>
-
-
-  <br>
-  <li ng-repeat="review in reviewResponse">
-    <p> Hard: {{review.hard}}  Useful: {{review.useful}}  Interest: {{review.interest}} </p>
-    <p> Prof: {{review.prof}}  year: {{review.year}} </p>
-    <p> comment: {{review.comment}} </p>
-  </li>
-  <br>
-  <p> Raw course response: {{courseInfoRes}} </p>
-  <p> Raw review response: {{reviewResponse}} </p>
-
 
 
 </div>
+
+

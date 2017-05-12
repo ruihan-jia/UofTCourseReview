@@ -1,0 +1,45 @@
+GET /api/review?cid=MAT457 200 3994.354 ms - 944
+saved to database
+cid: 'MAT457', year: '2016', hard: '5', useful: '4', interest: '5', comment: 'Good', prof: 'Illia Binder', user_ip: '::ffff:24.114.62.91'
+GET / 304 666.329 ms - -
+POST /api/review - - ms - -
+{ [MongoError: connection 12 to localhost:27017 timed out]
+  name: 'MongoError',
+  message: 'connection 12 to localhost:27017 timed out' }
+GET / 304 38.469 ms - -
+
+
+
+
+
+
+
+2017-05-07T16:33:12.875+0000 [conn256] query course-api.coursemodels query: { cid: "MAT457" } planSummary: COLLSCAN ntoskip:0 nscanned:7 nscannedObjects:7 keyUpdates:0 numYields:0 locks(micros) r:156515 nreturned:0 reslen:20 156ms
+2017-05-07T16:33:15.748+0000 [conn255] query course-api.reviews query: { cid: "MAT457" } planSummary: COLLSCAN ntoreturn:1000 ntoskip:0 nscanned:33 nscannedObjects:33 keyUpdates:0 numYields:0 locks(micros) r:439274 nreturned:0 reslen:20 439ms
+2017-05-07T16:33:17.296+0000 [conn256] insert course-api.coursemodels query: { cid: "MAT457", hard: 0, useful: 0, interest: 0, _id: ObjectId('590f4c4971d3b622d6d63bc9'), updated_at: new Date(1494174793591), __v: 0 } ninserted:1 keyUpdates:0 numYields:0 locks(micros) w:1293923 1333ms
+2017-05-07T16:33:17.384+0000 [initandlisten] connection accepted from 127.0.0.1:37522 #257 (3 connections now open)
+2017-05-07T16:33:17.414+0000 [conn256] command course-api.$cmd command: insert { insert: "coursemodels", documents: [ { cid: "MAT457", hard: 0, useful: 0, interest: 0, _id: ObjectId('590f4c4971d3b622d6d63bc9'), updated_at: new Date(1494174793591), __v: 0 } ], ordered: false, writeConcern: { w: 1 } } ntoreturn:1 keyUpdates:0 numYields:0 locks(micros) w:143 reslen:40 2055ms
+2017-05-07T16:34:10.064+0000 [PeriodicTaskRunner] task: WriteBackManager::cleaner took: 58ms
+2017-05-07T16:34:25.194+0000 [conn256] query course-api.coursemodels query: { cid: "MAT457" } planSummary: COLLSCAN ntoskip:0 nscanned:8 nscannedObjects:8 keyUpdates:0 numYields:1 locks(micros) r:4020105 nreturned:1 reslen:123 3548ms
+2017-05-07T16:34:28.852+0000 [conn255] command admin.$cmd command: isMaster { ismaster: true } keyUpdates:0 numYields:0  reslen:178 225ms
+2017-05-07T16:34:37.695+0000 [conn255] end connection 127.0.0.1:37518 (2 connections now open)
+2017-05-07T16:34:40.371+0000 [conn257] insert course-api.reviews query: { cid: "MAT457", year: 2016, hard: 5, useful: 4, interest: 5, prof: "Illia Binder", comment: "Good", user_ip: "::ffff:24.114.62.91", _id: ObjectId('590f4c9c71d3b622d6d63bca'), updated_at: new Date(1494174872871), __v: 0 } ninserted:1 keyUpdates:0 numYields:0 locks(micros) w:1107778 1156ms
+2017-05-07T16:34:41.293+0000 [conn257] command course-api.$cmd command: insert { insert: "reviews", documents: [ { cid: "MAT457", year: 2016, hard: 5, useful: 4, interest: 5, prof: "Illia Binder", comment: "Good", user_ip: "::ffff:24.114.62.91", _id: ObjectId('590f4c9c71d3b622d6d63bca'), updated_at: new Date(1494174872871), __v: 0 } ], ordered: false, writeConcern: { w: 1 } } ntoreturn:1 keyUpdates:0 numYields:0 locks(micros) w:1460673 reslen:40 3627ms
+2017-05-07T16:35:10.019+0000 [TTLMonitor] query admin.system.indexes query: { expireAfterSeconds: { $exists: true } } planSummary: EOF ntoreturn:0 ntoskip:0 nscanned:0 nscannedObjects:0 keyUpdates:0 numYields:0 locks(micros) r:7735285 nreturned:0 reslen:20 8441ms
+2017-05-07T16:35:10.744+0000 [PeriodicTaskRunner] task: WriteBackManager::cleaner took: 156ms
+2017-05-07T16:35:24.724+0000 [conn256] end connection 127.0.0.1:37520 (1 connection now open)
+2017-05-07T16:35:30.322+0000 [TTLMonitor] query course-api.system.indexes query: { expireAfterSeconds: { $exists: true } } planSummary: COLLSCAN ntoreturn:0 ntoskip:0 nscanned:3 nscannedObjects:3 keyUpdates:0 numYields:2 locks(micros) r:23881783 nreturned:0 reslen:20 14794ms
+2017-05-07T16:35:48.950+0000 [TTLMonitor] query local.system.indexes query: { expireAfterSeconds: { $exists: true } } planSummary: COLLSCAN ntoreturn:0 ntoskip:0 nscanned:1 nscannedObjects:1 keyUpdates:0 numYields:2 locks(micros) r:20785389 nreturned:0 reslen:20 11402ms
+2017-05-07T16:35:58.587+0000 [TTLMonitor] query test.system.indexes query: { expireAfterSeconds: { $exists: true } } planSummary: EOF ntoreturn:0 ntoskip:0 nscanned:0 nscannedObjects:0 keyUpdates:0 numYields:0 locks(micros) r:5127128 nreturned:0 reslen:20 5784ms
+2017-05-07T16:36:12.323+0000 [PeriodicTaskRunner] task: DBConnectionPool-cleaner took: 470ms
+2017-05-07T16:36:14.528+0000 [PeriodicTaskRunner] task: WriteBackManager::cleaner took: 254ms
+2017-05-07T16:36:14.734+0000 [PeriodicTaskRunner] task: DBConnectionPool-cleaner took: 205ms
+2017-05-07T16:36:37.342+0000 [conn257] end connection 127.0.0.1:37522 (0 connections now open)
+2017-05-07T16:36:37.901+0000 [initandlisten] connection accepted from 127.0.0.1:37524 #258 (1 connection now open)
+2017-05-07T16:38:10.912+0000 [clientcursormon] mem (MB) res:30 virt:428
+2017-05-07T16:38:11.030+0000 [clientcursormon]  mapped (incl journal view):192
+2017-05-07T16:38:11.030+0000 [clientcursormon]  connections:1
+2017-05-07T16:39:15.422+0000 [PeriodicTaskRunner] task: WriteBackManager::cleaner took: 19ms
+2017-05-07T16:40:08.706+0000 [conn258] end connection 127.0.0.1:37524 (0 connections now open)
+2017-05-07T16:40:10.638+0000 [initandlisten] connection accepted from 127.0.0.1:37526 #259 (1 connection now open)
+
