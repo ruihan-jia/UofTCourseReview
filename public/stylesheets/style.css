@@ -49,6 +49,12 @@ a {
   font-size:150%;
 }
 
+.md-button.md-raised.search {
+
+}
+
+
+
 /* review page */
 
 .review-body {
@@ -59,6 +65,9 @@ a {
 }
 
 .course-section {
+}
+
+.course-info {
   margin-bottom: 30px;
   border-style: outset;
   border-width: 1px;
@@ -68,36 +77,155 @@ a {
   padding: 15px;
 }
 
+.course-rating {
+  margin-bottom: 30px;
+  border-style: outset;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #f7f7f7;
+  background-color: #ffffff;
+  padding: 15px;
+  display:block;
+  width:auto;
+}
+
+.rating-block {
+  display:inline-block;
+  width:32%;
+  text-align:center;
+}
 .rating-text {
+  font-size: 16px;
+}
+
+.rating-number {
   font-size: 20px;
   font-weight: bold;
 }
 
+.md-button.md-raised.write-review {
+  font-size: 20px;
+  height:60px;
+  width: 70%;
+  background-color: #99ccff;
+}
+.md-button.md-raised:not([disabled]):hover {
+  background-color: #84c1ff;
+}
+
+.review-section {
+  margin-bottom: 30px;
+  border-style: outset;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #f7f7f7;
+  background-color: #ffffff;
+  padding: 15px;
+  text-align: center;
+}
+
+.reviews-container {
+  margin-top: 20px;
+}
+
+.reviews-li {
+  list-style-type:none;
+  margin-bottom: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #99ccff;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.review-rate-container {
+  display:block;
+  text-align:left;
+}
+
+.review-rate-block {
+  display:inline-block;
+  width: 32%;
+}
+
+.review-rate-text {
+  font-size: 16px;
+}
+
+.review-rate-number {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.review-info-container {
+  text-align:left;
+  margin-top:-10px;
+  margin-bottom:-10px;
+}
+
+.review-info-text {
+  font-size: 20px;
+  font-weight: bold;
+  display:inline-block;
+  width:48%;
+}
+
+.review-info-content {
+  font-size: 16px;
+  font-weight:normal;
+}
+
+.review-comment-container {
+  display:table;
+  text-align:left;
+}
+
+.review-comment-text {
+  float:left;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.review-comment-content {
+  font-size: 16px;
+  font-weight:normal;
+}
+
+
+
+
 
 @media only screen and (min-width: 768px) {
 
-.review-body {
-  margin: 10px;
-  margin-left: 100px;
-  margin-right: 100px;
+  .review-body {
+    margin: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+
+  .course-section {
+    display:table;
+  }
+
+  .course-info {
+    float:left;
+    width: 70%;
+  }
+
+  .course-rating {
+    float:right;
+    width:18%;
+  }
+
+  .rating-block {
+    display:inline;
+  }
+
+
 }
 
-.course-section {
-  display:table;
-}
 
-.course-info {
-  float:left;
-  width: 70%;
-}
-
-.course-rating {
-  float:right;
-}
-
-
-
-}
 
 .rating{
   color: #a9a9a9;

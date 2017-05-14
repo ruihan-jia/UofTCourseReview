@@ -14,12 +14,18 @@
       <p> Division: {{courseInfoRes.division}} </p>
     </div>
     <div class="course-rating">
-      <p class="rating-text"> Hardness: </p>
-      <p class="rating-text"> {{courseRatingRes.hard | number:2}} </p>
-      <p class="rating-text"> Usefulness:</p>
-      <p class="rating-text"> {{courseRatingRes.useful | number:2}} </p>
-      <p class="rating-text"> Interest: </p>
-      <p class="rating-text"> {{courseRatingRes.interest | number:2}} </p>
+      <div class="rating-block">
+        <p class="rating-text"> Hardness: </p>
+        <p class="rating-number"> {{courseRatingRes.hard | number:2}} </p>
+      </div>
+      <div class="rating-block">
+        <p class="rating-text"> Usefulness:</p>
+        <p class="rating-number"> {{courseRatingRes.useful | number:2}} </p>
+      </div>
+      <div class="rating-block">
+        <p class="rating-text"> Interest: </p>
+        <p class="rating-number"> {{courseRatingRes.interest | number:2}} </p>
+      </div>
     </div>
   </div>
 
@@ -49,18 +55,38 @@
 
   <div class="review-section">
 
-    <button ng-click="writeReview()" ng-disabled="written">Write Review</button>
+   <!-- <button ng-click="writeReview()" ng-disabled="written">Write Review</button>
+-->
+    <md-button class="md-raised write-review" ng-click="writeReview()"> Write Review </md-button>
 
-    <br>
-    <li ng-repeat="review in reviewResponse">
-      <p> Hard: {{review.hard}}  Useful: {{review.useful}}  Interest: {{review.interest}} </p>
-      <p> Prof: {{review.prof}}  year: {{review.year}} </p>
-      <p> comment: {{review.comment}} </p>
-    </li>
-    <br>
+
+    <div class="reviews-container">
+      <li ng-repeat="review in reviewResponse" class="reviews-li">
+        <div class="review-rate-container">
+          <div class="review-rate-block">
+	    <p class="review-rate-text">Hard: <span class="review-rate-number">{{review.hard}} </span></p>
+	  </div>
+          <div class="review-rate-block">
+	    <p class="review-rate-text">Useful: <span class="review-rate-number">{{review.useful}} </span></p>
+	  </div>
+          <div class="review-rate-block">
+	    <p class="review-rate-text">Interest: <span class="review-rate-number">{{review.interest}} </span></p>
+	  </div>
+        </div>
+	<div class="review-info-container">
+          <p class="review-info-text"> Prof: <span class="review-info-content"> {{review.prof}} </span></p>
+	  <p class="review-info-text"> year: <span class="review-info-content"> {{review.year}} </span></p>
+	</div>
+	<div class="review-comment-container">
+          <p class="review-comment-text"> comment: <span class="review-comment-content"> {{review.comment}} </span></p>
+	</div>
+      </li>
+    </div>
+
+<!--
     <p> Raw course response: {{courseInfoRes}} </p>
     <p> Raw review response: {{reviewResponse}} </p>
-
+-->
   </div>
 
 
