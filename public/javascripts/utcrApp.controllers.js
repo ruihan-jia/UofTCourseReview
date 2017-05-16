@@ -11,10 +11,13 @@ angular.module('utcrApp')
     }])
     
 
-    .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$cookies', '$location', function ($scope, $routeParams, Courses, Reviews, $cookies, $location) {
+    .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$cookies', '$location', '$mdDialog', function ($scope, $routeParams, Courses, Reviews, $cookies, $location, $mdDialog) {
+
+
 
 	//initial setup
-        $scope.courseID = $routeParams.id;
+        $scope.CID = $routeParams.id;
+        $scope.courseID = angular.copy($scope.CID)
 
         $scope.rating = 0;
     	$scope.ratings = [
@@ -42,6 +45,76 @@ angular.module('utcrApp')
 	$scope.MsgModal = false;
 
 	$scope.years = [2017, 2016, 2015];
+
+
+
+      var alert1;
+
+//    $scope.showAlert = showAlert;
+/*
+// Internal method
+    $scope.showAlert = function(){
+      alert1 = $mdDialog.alert({
+        title: 'Attention',
+        textContent: 'This is an example of how easy dialogs can be!',
+        ok: 'Close'
+      });
+
+      $mdDialog
+        .show( alert1 )
+        .finally(function() {
+          alert1 = undefined;
+        });
+    }
+*/
+    $scope.items = [1, 2, 3];
+    $scope.test = "test";
+
+    $scope.showDialog = function($event) {
+       var parentEl = angular.element(document.body);
+       $mdDialog.show({
+         parent: parentEl,
+         targetEvent: $event,
+         templateUrl:'dialog.template.html',
+/*
+         template:
+           '<md-dialog aria-label="List dialog">' +
+           '  <md-dialog-content>'+
+           '    <md-list>'+
+           '      <md-list-item ng-repeat="item in items">'+
+           '       <p>Number {{courseID}}</p>' +
+           '      '+
+           '    </md-list-item></md-list>'+
+           '  </md-dialog-content>' +
+           '  <md-dialog-actions>' +
+           '    <md-button ng-click="closeDialog()" class="md-primary">' +
+           '      Close Dialog' +
+           '    </md-button>' +
+           '  </md-dialog-actions>' +
+           '</md-dialog>',
+*/
+         locals: {
+           courseID: $scope.courseID,
+	   ratings: $scope.ratings,
+	   years: $scope.years
+         },
+         controller: DialogController
+      });
+      function DialogController($scope, $mdDialog, courseID, ratings, years) {
+        $scope.courseID = courseID;
+        $scope.ratings = ratings;
+        $scope.years = years;
+        $scope.closeDialog = function() {
+          $mdDialog.hide();
+        }
+      }
+    }
+
+
+
+
+
+
 
 	//get reviews from server
         Reviews.get({cid: $routeParams.id }, function(data) {
