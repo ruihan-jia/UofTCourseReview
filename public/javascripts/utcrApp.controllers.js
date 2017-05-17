@@ -2,25 +2,23 @@
 
 angular.module('utcrApp')
 
-    .controller('HomeController', ['$scope', 'Courses', '$location', function ($scope, Courses, $location) {
+  .controller('HomeController', ['$scope', 'Courses', '$location', function ($scope, Courses, $location) {
         //$scope.editing = [];
         //$scope.courses = Courses.query();
         $scope.search = function(){
           $location.url('/course/' + $scope.courseID);
         }
-    }])
+  }])
     
 
-    .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$cookies', '$location', '$mdDialog', function ($scope, $routeParams, Courses, Reviews, $cookies, $location, $mdDialog) {
+  .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$cookies', '$location', '$mdDialog', function ($scope, $routeParams, Courses, Reviews, $cookies, $location, $mdDialog) {
 
+    //initial setup
+    $scope.CID = $routeParams.id;
+    $scope.courseID = angular.copy($scope.CID)
 
-
-	//initial setup
-        $scope.CID = $routeParams.id;
-        $scope.courseID = angular.copy($scope.CID)
-
-        $scope.rating = 0;
-    	$scope.ratings = [
+    $scope.rating = 0;
+    $scope.ratings = [
 	  {
 	    namef: 'easy',
 	    namel: 'hard',
@@ -39,75 +37,46 @@ angular.module('utcrApp')
 	    current: -1,
 	    max: 5
 	  }
-	];
+    ];
 
-	$scope.ReviewModal = false;
-	$scope.MsgModal = false;
+    $scope.ReviewModal = false;
+    $scope.MsgModal = false;
 
-	$scope.years = [2017, 2016, 2015];
+    $scope.years = [2017, 2016, 2015];
 
 
 
-      var alert1;
-
-//    $scope.showAlert = showAlert;
-/*
-// Internal method
-    $scope.showAlert = function(){
-      alert1 = $mdDialog.alert({
+    var alertInfo = $mdDialog.alert({
         title: 'Attention',
         textContent: 'This is an example of how easy dialogs can be!',
         ok: 'Close'
-      });
+    });
 
+    $scope.showAlert = function(){
       $mdDialog
-        .show( alert1 )
+        .show( alertInfo )
         .finally(function() {
-          alert1 = undefined;
+          alertInfo = undefined;
         });
     }
-*/
-    $scope.items = [1, 2, 3];
-    $scope.test = "test";
 
-    $scope.showDialog = function($event) {
-       var parentEl = angular.element(document.body);
-       $mdDialog.show({
-         parent: parentEl,
-         targetEvent: $event,
-         templateUrl:'dialog.template.html',
-/*
-         template:
-           '<md-dialog aria-label="List dialog">' +
-           '  <md-dialog-content>'+
-           '    <md-list>'+
-           '      <md-list-item ng-repeat="item in items">'+
-           '       <p>Number {{courseID}}</p>' +
-           '      '+
-           '    </md-list-item></md-list>'+
-           '  </md-dialog-content>' +
-           '  <md-dialog-actions>' +
-           '    <md-button ng-click="closeDialog()" class="md-primary">' +
-           '      Close Dialog' +
-           '    </md-button>' +
-           '  </md-dialog-actions>' +
-           '</md-dialog>',
-*/
-         locals: {
-           courseID: $scope.courseID,
-	   ratings: $scope.ratings,
-	   years: $scope.years
-         },
-         controller: DialogController
+
+    $scope.showDialogWriteReview = function($event) {
+      console.log("write review pressed");
+
+      var parentEl = angular.element(document.body);
+      $mdDialog.show({
+        parent: parentEl,
+        targetEvent: $event,
+        templateUrl:'dialog.template.html',
+        scope:$scope,
+	preserveScope: true,
       });
-      function DialogController($scope, $mdDialog, courseID, ratings, years) {
-        $scope.courseID = courseID;
-        $scope.ratings = ratings;
-        $scope.years = years;
-        $scope.closeDialog = function() {
-          $mdDialog.hide();
-        }
-      }
+    }
+
+    $scope.closeDialog = function() {
+      console.log("write review closed");
+      $mdDialog.hide();
     }
 
 
@@ -127,6 +96,7 @@ angular.module('utcrApp')
  
         });
 
+	//cookies
 	var cookieName = 'written' + $scope.courseID;
 	var writtenCookie = $cookies.get(cookieName);
 	console.log(writtenCookie);
@@ -142,6 +112,7 @@ angular.module('utcrApp')
 	//----------
 	//functions:
 	//----------
+/*
 	$scope.writeReview = function() {
 	  $scope.ReviewModal = true;
 	}
@@ -153,8 +124,7 @@ angular.module('utcrApp')
 	$scope.closeMsgModal = function() {
 	  $scope.MsgModal = false;
 	}
-
-
+*/
         $scope.searchCourse = function(){
           $location.url('/course/' + $scope.courseID);
         }
@@ -184,24 +154,51 @@ angular.module('utcrApp')
 		if(res.status == 0) {
 		  $cookies.put(cookieName, 1);
 		  $scope.written = true;
+/*
 		  $scope.MsgTitle = "Success";
 		  $scope.MsgBody = "Review submitted. Thank you!";
 		  $scope.MsgModal = true;
+*/
+		  alertInfo = $mdDialog.alert({
+	            title: 'Submission Success',
+        	    textContent: 'Review submitted. Thank you!',
+	            ok: 'Close'
+        	  });
+		  $scope.showAlert();
+
 		} else {
+/*
 		  $scope.MsgTitle = "Failed";
 		  $scope.MsgBody = "Review was not submitted. " + res.errmsg;
 		  $scope.MsgModal = true;
+*/
+		  alertInfo = $mdDialog.alert({
+	            title: 'Submission failed',
+        	    textContent: 'Review was not submitted.',
+	            ok: 'Close'
+        	  });
+		  $scope.showAlert();
 		}
 	      }
 	    );
-	    $scope.ReviewModal = false;
+	    $scope.ReviewModal = false;  
+            $mdDialog.hide();
 	  }
 	  else {
 	    $scope.MsgTitle = "Failed";
 	    $scope.MsgBody = "Please select all options";
-	    $scope.MsgModal = true;
+//	    $scope.MsgModal = true;
 
 	    console.log("please select all options");
+
+            $mdDialog.hide();
+	    alertInfo = $mdDialog.alert({
+              title: 'Submission failed',
+              textContent: 'Please select all options',
+              ok: 'Close'
+            });
+	    $scope.showAlert();
+
 	  }
 	}
 

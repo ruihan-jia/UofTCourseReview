@@ -1,8 +1,8 @@
-<md-dialog aria-label="List dialog">
+<md-dialog aria-label="List dialog" class="dialogWriteReview">
   <md-dialog-content>
     <h2> Write Review for {{courseID}}</h2>
     <md-list>
-      <md-list-item ng-repeat="rating in ratings">
+      <md-list-item class="rating-list-item" ng-repeat="rating in ratings">
                  
         <div star-rating rating-value="rating.current" max="rating.max" namef="rating.namef" namel="rating.namel" on-rating-selected="getSelectedRating(rating)"></div>
       </md-list-item>
@@ -12,9 +12,9 @@
     <div star-rating rating-value="rating.current" max="rating.max" namef="rating.namef" namel="rating.namel" on-rating-selected="getSelectedRating(rating)"></div>
     </span>
 -->
-    <select ng-model="selectedYear" ng-options="x for x in years"></select>
-    <input type="text" ng-model="prof" placeholder="prof">
-    <input type="text" ng-model="reviewComment" placeholder="comment">
+    <select class="dropdownYear" ng-model="selectedYear" ng-options="year for year in years"></select>
+    <input class="inputProf" type="text" ng-model="prof" placeholder="prof">
+    <input class="inputComment" type="text" ng-model="reviewComment" placeholder="comment">
 <!--
     <md-list>
       <md-list-item ng-repeat="item in items">

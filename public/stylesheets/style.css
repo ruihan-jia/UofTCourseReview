@@ -251,19 +251,18 @@ ul.rating {
 }
 
 
-.modal {
+/* dialog */
 
-  position: fixed;
-  background-color: white;
-  z-index: 1;
+.dialogWriteReview {
+  width: 80%;
+  height: 70%;
 }
 
-.modalmsg {
-  position: fixed;
-  background-color: grey;
-  z-index: 2;
+.rating-list-item {
+  font-size: 20px;
 }
 
-.close {
-  float: right;
+.inputComment {
+  width: 80%;
+  height: 150px;
 }
