@@ -150,7 +150,7 @@ a {
 }
 
 .review-rate-text {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .review-rate-number {
@@ -253,16 +253,59 @@ ul.rating {
 
 /* dialog */
 
+pd {
+  display:block;
+}
+
 .dialogWriteReview {
-  width: 80%;
-  height: 70%;
+  width: 90%;
+  height: 410px;
+  padding: 10px;
+}
+
+.dialog-title {
+  margin-bottom: 0px;
 }
 
 .rating-list-item {
   font-size: 20px;
+  margin-top: -5px;
 }
 
 .inputComment {
-  width: 80%;
-  height: 150px;
+  width: 97%;
+  height: 110px;
 }
+
+.info1 {
+  display:block;
+}
+
+.info1year {
+  width: 29%;
+  display:inline-block;
+}
+
+.info1prof {
+  width: 69%;
+  display:inline-block;
+}
+
+.info2 {
+  margin-top:10px;
+}
+
+.dialog-buttons {
+  margin-top:10px;
+  text-align:right;
+}
+
+.md-button.md-raised.submitReview {
+  background-color: #99ccff;
+  color: black;
+}
+.md-button.md-raised:not([disabled]):hover {
+  background-color: #84c1ff;
+}
+
+

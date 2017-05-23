@@ -1,6 +1,6 @@
 <md-dialog aria-label="List dialog" class="dialogWriteReview">
   <md-dialog-content>
-    <h2> Write Review for {{courseID}}</h2>
+    <h2 class="dialog-title"> Write Review for {{courseID}}</h2>
     <md-list>
       <md-list-item class="rating-list-item" ng-repeat="rating in ratings">
                  
@@ -12,23 +12,41 @@
     <div star-rating rating-value="rating.current" max="rating.max" namef="rating.namef" namel="rating.namel" on-rating-selected="getSelectedRating(rating)"></div>
     </span>
 -->
-    <select class="dropdownYear" ng-model="selectedYear" ng-options="year for year in years"></select>
-    <input class="inputProf" type="text" ng-model="prof" placeholder="prof">
-    <input class="inputComment" type="text" ng-model="reviewComment" placeholder="comment">
-<!--
-    <md-list>
-      <md-list-item ng-repeat="item in items">
-      <p>Number {{item}}</p>
-                 
-      </md-list-item>
-    </md-list>
--->
-  </md-dialog-content>
+    <div class="info1">
+      <div class="info1year">
+	<pd> Year: </pd>
+        <select class="dropdownYear" ng-model="selectedYear" ng-options="year for year in years">
+	  <option value=""></option>
+	</select>
+      </div>
+      <div class="info1prof">
+        <pd> Prof: </pd>
+        <input class="inputProf" type="text" ng-model="prof" maxlength=32>
+      </div>
+    </div>
+    <div class="info2">
+      <pd> Comment: </pd>
+      <!--<input class="inputComment" type="text" ng-model="reviewComment">-->
+      <textarea class="inputComment" type="text" ng-model="reviewComment" maxlength=300>
+      </textarea>
+    </div>
 
+    <div class="dialog-buttons">
+      <md-button ng-click="closeDialog()" class="md-raised">
+        Cancel
+      </md-button>
+      <md-button ng-click="submitReview()" class="md-primary md-raised submitReview">
+        Submit Review
+      </md-button>
+    </div>
+
+  </md-dialog-content>
+<!--
   <md-dialog-actions>
     <md-button ng-click="closeDialog()" class="md-primary">
                  Close Dialog
     </md-button>
     <button id="submitReview" ng-click="submitReview()">Submit Review</button>
   </md-dialog-actions>
+-->
 </md-dialog>
