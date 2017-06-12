@@ -213,7 +213,13 @@ angular.module('utcrApp')
     .directive('starRating', function () {
     return {
         restrict: 'A',
-	templateUrl:
+//	templateUrl:'../test.html',
+
+
+	template:
+'<ul class="rating"> <div class="ratingNameDiv"> {{namel}}:  </div>  <div class="ratingStarDiv">  <li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)"> \u2605  </li>  </div></ul>',
+
+
 /*
         template: '<ul class="rating">' + '{{namel}}: ' +
             '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' +

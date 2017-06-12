@@ -7,32 +7,27 @@
         <div star-rating rating-value="rating.current" max="rating.max" namef="rating.namef" namel="rating.namel" on-rating-selected="getSelectedRating(rating)"></div>
       </md-list-item>
     </md-list>
-<!--
-    <span ng-repeat="rating in ratings">
-    <div star-rating rating-value="rating.current" max="rating.max" namef="rating.namef" namel="rating.namel" on-rating-selected="getSelectedRating(rating)"></div>
-    </span>
--->
     <div class="info1">
       <div class="info1year">
-	<pd> Year: </pd>
-        <select class="dropdownYear" ng-model="selectedYear" ng-options="year for year in years">
-	  <option value=""></option>
-	</select>
+	<md-input-container>
+	  <md-select ng-model="selectedYear" placeholder="Year">
+	    <md-option ng-value="year" ng-repeat="year in years">{{ year }}</md-option>
+	  </md-select>
+	</md-input-container>
       </div>
       <div class="info1prof">
-        <pd> Prof: </pd>
+        <pd> Instructor: </pd>
         <input class="inputProf" type="text" ng-model="prof" maxlength=32>
       </div>
     </div>
     <div class="info2">
       <pd> Comment: </pd>
-      <!--<input class="inputComment" type="text" ng-model="reviewComment">-->
       <textarea class="inputComment" type="text" ng-model="reviewComment" maxlength=300>
       </textarea>
     </div>
 
     <div class="dialog-buttons">
-      <md-button ng-click="closeDialog()" class="md-raised">
+      <md-button ng-click="closeDialog()" class="md-raised cancelReview">
         Cancel
       </md-button>
       <md-button ng-click="submitReview()" class="md-primary md-raised submitReview">

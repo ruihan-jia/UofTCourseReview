@@ -29,30 +29,6 @@
     </div>
   </div>
 
-<!-- for popups -->
-<!--
-<div ng-show="MsgModal" class="modalmsg"> 
-  <h2> {{MsgTitle}} </h2>
-  <span class="close" ng-click="closeMsgModal()">&times;</span>
-  <p> {{MsgBody}} </p>
-</div>
-
-
-<div ng-show="ReviewModal" class="modal"> 
-  <h2> Review for {{courseID}}</h2>
-  <span class="close" ng-click="closeModal()">&times;</span>
-  <span ng-repeat="rating in ratings">
-  <div star-rating rating-value="rating.current" max="rating.max" namef="rating.namef" namel="rating.namel" on-rating-selected="getSelectedRating(rating)"></div>
-  </span>
-       
-  <select ng-model="selectedYear" ng-options="x for x in years"></select>
-  <input type="text" ng-model="prof" placeholder="prof">
-  <input type="text" ng-model="reviewComment" placeholder="comment">
-  <button id="submitReview" ng-click="submitReview()">Submit Review</button>
-</div>
--->
-
-
   <div class="review-section">
 
 
@@ -61,7 +37,7 @@
 
 
     <div class="reviews-container">
-      <li ng-repeat="review in reviewResponse" class="reviews-li">
+      <li ng-repeat="review in reviewResponse | orderBy:review:true" class="reviews-li">
         <div class="review-rate-container">
           <div class="review-rate-block">
 	    <p class="review-rate-text">Hard: <span class="review-rate-number">{{review.hard}} </span></p>

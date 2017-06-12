@@ -75,6 +75,7 @@ a {
   border-color: #f7f7f7;
   background-color: #ffffff;
   padding: 15px;
+  min-height: 260px;
 }
 
 .course-rating {
@@ -255,11 +256,13 @@ ul.rating {
 
 pd {
   display:block;
+  magin-bottom: 5px;
 }
 
 .dialogWriteReview {
   width: 90%;
-  height: 410px;
+  max-width: 600px;
+  height: 430px;
   padding: 10px;
 }
 
@@ -284,6 +287,7 @@ pd {
 .info1year {
   width: 29%;
   display:inline-block;
+  margin-bottom: -10px;
 }
 
 .info1prof {
@@ -304,8 +308,22 @@ pd {
   background-color: #99ccff;
   color: black;
 }
-.md-button.md-raised:not([disabled]):hover {
+.md-button.md-raised.submitReview:not([disabled]):hover {
   background-color: #84c1ff;
 }
 
 
+.md-button.cancelReview:not([disabled]):hover {
+  background-color: #f2f2f2;
+}
+
+
+.ratingNameDiv {
+  display: inline-block;
+  width: 110px;
+  text-align: right;
+}
+
+.ratingStarDiv {
+  display: inline-block;
+}
