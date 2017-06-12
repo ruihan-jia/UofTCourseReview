@@ -9,7 +9,7 @@ angular.module('utcrApp')
           $location.url('/course/' + $scope.courseID);
         }
   }])
-    
+
 
   .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$cookies', '$location', '$mdDialog', function ($scope, $routeParams, Courses, Reviews, $cookies, $location, $mdDialog) {
 
@@ -24,7 +24,7 @@ angular.module('utcrApp')
 	    namel: 'hard',
             current: -1,
             max: 5
-    	  }, 
+    	  },
 	  {
 	    namef: 'useless',
 	    namel: 'useful',
@@ -146,7 +146,7 @@ angular.module('utcrApp')
 	  review.prof = $scope.prof;
 	  review.comment = $scope.reviewComment;
 	  console.log(review);
-	
+
 	  if(review.hard != -1 && review.useful != -1 && review.interest != -1 && !angular.isUndefined($scope.selectedYear)){
 	    review.$save().then(
 	      function(res) {
