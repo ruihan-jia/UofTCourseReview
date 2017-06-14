@@ -12,7 +12,9 @@ angular.module('utcrApp', ['ngMaterial', 'ngRoute', 'ngResource', 'ngCookies'])
       return $resource('/api/review');
     }])
 
-    
+    .factory('AutoComp', ['$resource', function($resource){
+      return $resource('/api/autocomplete');
+    }])
 
     //---------------
     // Routes

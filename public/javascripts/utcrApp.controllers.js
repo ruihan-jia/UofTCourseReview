@@ -2,12 +2,24 @@
 
 angular.module('utcrApp')
 
-  .controller('HomeController', ['$scope', 'Courses', '$location', function ($scope, Courses, $location) {
-        //$scope.editing = [];
-        //$scope.courses = Courses.query();
-        $scope.search = function(){
-          $location.url('/course/' + $scope.courseID);
-        }
+  .controller('HomeController', ['$scope', 'Courses', '$location', 'AutoComp', function ($scope, Courses, $location, AutoComp) {
+    //$scope.editing = [];
+    //$scope.courses = Courses.query();
+    $scope.search = function(){
+      $location.url('/course/' + $scope.courseID);
+    }
+
+    $scope.query = function(searchText){
+      //get autocomplete results from server
+      return AutoComp.query({term: searchText }).$promise;
+
+/*
+          return AutoComp.query({term: searchText }, function(data) {
+            console.log(data);
+	    return data;
+          });
+*/
+    }
   }])
 
 

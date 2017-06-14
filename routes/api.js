@@ -5,16 +5,18 @@ var Course = require('../models/CourseModel.js');
 var Review = require('../models/ReviewModel.js');
 var CourseInfo = require('../models/CourseInfoModel.js');
 
-/* GET /todos listing. */
+/* GET course information */
 router.get('/course', function(req, res, next) {
   if(!req.query.cid){
+    res.json({status:2, errmsg: "missing parameters"});
+/*
     Course.find(function (err, courses) {
       if (err) return next(err);
-    
       res.json(courses);
     });
+*/
   }else {
-    console.log("api received " + req.query.cid);
+    console.log("API: course query " + req.query.cid);
     var querycid = req.query.cid.toUpperCase();
     console.log("query cid: " + querycid);
     Course.findOne({cid:querycid}, function (err, post) {
@@ -25,7 +27,7 @@ router.get('/course', function(req, res, next) {
   }
 });
 
-/* POST /todos */
+/* POST course info. not needed */
 router.post('/course', function(req, res, next) {
   Course.create(req.body, function (err, post) {
     if (err) return next(err);
@@ -35,20 +37,58 @@ router.post('/course', function(req, res, next) {
 
 
 
-/* GET /todos listing. */
+/* GET autocomplete info */
+router.get('/autocomplete', function(req, res, next) {
+  if(!req.query.term){
+    res.json({status:2, errmsg: "missing parameters"});
+  }else {
+    console.log("API: autocomplete query " + req.query.term);
+    var queryTerm = req.query.term.toUpperCase();
+    console.log("query term: " + queryTerm);
+
+//find code similar to query term, then group by same code and chose first name
+    CourseInfo.aggregate(
+      [
+        {$match: {code: new RegExp('^' + queryTerm)}},
+        {$group:
+          {
+	    _id: "$code",
+	    name: {$first: "$name"}
+          }
+        },
+	{$sort: {"_id":1}},
+	{$limit:10}
+      ],
+      function(err, results) {
+        if(err) {
+          console.log(err);
+        }
+        console.log(results);
+	res.json(results);
+      }
+    );
+
+
+/*
+    CourseInfo.find({code: new RegExp('^' + queryTerm)}).distinct('code').exec(function(err,post) {
+      if (err) return next(err);
+      console.log("query found: " + post);
+      res.json(post);
+    });
+*/
+  }
+});
+
+
+
+/* GET list of reviews for specific course */
 router.get('/review', function(req, res, next) {
   if(!req.query.cid){
-    /*
-    Review.find(function (err, courses) {
-      if (err) return next(err);
-    
-      res.json(courses);
-    });
-    */
+    res.json({status:2, errmsg: "missing parameters"});
   }else {
 
     var querycid = req.query.cid.toUpperCase();
-    console.log("retrieve reviews of " + querycid);
+    console.log("API: review query " + querycid);
 
     var courseInfo;
 
@@ -139,7 +179,7 @@ router.post('/review', function(req, res, next) {
     console.log("invalid request: missing parameters");
     res.json({status:2, errmsg: "missing parameters"});
   } else {
-    
+
     //check if parameters are valid
     if(hard > 5 || hard < 1 || useful > 5 || useful < 1 || interest > 5 || interest < 1 || year < 2000) {
       console.log("invalid request: invalid parameters");
@@ -147,7 +187,6 @@ router.post('/review', function(req, res, next) {
     } else {
 
       //check if the course exists in database
-      //no need to check cobalt
       Course.findOne({cid:cid}, function (err, post) {
         if (err) {
 	  console.log("invalid request: course not found");
@@ -169,9 +208,9 @@ router.post('/review', function(req, res, next) {
 	  Review.aggregate(
 	    [
               {$match: {cid: cid}},
-	      {$group: 
+	      {$group:
 	        {
-		  _id: null, 
+		  _id: null,
 		  averageHard: {$avg: '$hard'},
 		  averageUseful: {$avg: '$useful'},
 		  averageInterest: {$avg: '$interest'}
@@ -189,7 +228,7 @@ router.post('/review', function(req, res, next) {
 
 	      Course.findOneAndUpdate({cid:cid}, {hard:results[0].averageHard, useful:results[0].averageUseful, interest:results[0].averageInterest}, function(err, result) {
 	        if(err) console.log(err);
-	
+
 	        console.log(result);
 
 	      });
