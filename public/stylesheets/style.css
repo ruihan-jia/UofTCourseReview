@@ -50,8 +50,13 @@ a {
 }
 
 .md-button.md-raised.search {
-
 }
+
+.autocomp {
+  width: 40%;
+  margin:auto
+}
+
 
 
 

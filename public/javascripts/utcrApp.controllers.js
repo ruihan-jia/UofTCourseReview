@@ -6,13 +6,12 @@ angular.module('utcrApp')
     //$scope.editing = [];
     //$scope.courses = Courses.query();
     $scope.search = function(){
-      $location.url('/course/' + $scope.courseID);
+      $location.url('/course/' + $scope.selectedItem._id);
     }
 
     $scope.query = function(searchText){
       //get autocomplete results from server
       return AutoComp.query({term: searchText }).$promise;
-
 /*
           return AutoComp.query({term: searchText }, function(data) {
             console.log(data);

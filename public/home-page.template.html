@@ -3,14 +3,17 @@
       <h1>University of Toronto Course Review</h1>
       <p>Work in progress. For testing data, enter ece496, ece411 or aps111</p>
 
-<!--  <form name="searchForm">-->
-    <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)">
+  <form name="searchForm" ng-submit="search()" ng-controller="HomeController">
+    <md-autocomplete flex="2" class="autocomp" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
       <md-item-template>
         <span md-highlight-text="searchText">{{item._id}} - {{item.name}}</span>
       </md-item-template>
+      <md-not-found>
+        No matches found.
+      </md-not-found>
     </md-autocomplete>
     <md-button class="md-raised md-primary search" ng-click="search()"> Search </md-button>
-<!--  </form>-->
+  </form>
 <!--
   <form>
       <input type="text" class="course-input" ng-model="courseID"  placeholder="course id" maxlength="20">
