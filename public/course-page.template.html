@@ -1,8 +1,18 @@
   
 <div class="review-body">
   <div class="top-search">
-    <input type="text" ng-model="CID" placeholder="Course ID">
-    <button ng-click="searchCourse()">Search</button>
+  <form name="searchFormTop" ng-submit="searchCourse()" ng-controller="CourseController">
+    <md-autocomplete flex="2" class="autocomp" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
+      <md-item-template>
+        <span md-highlight-text="searchText">{{item._id}} - {{item.name}}</span>
+      </md-item-template>
+      <md-not-found>
+        No matches found.
+      </md-not-found>
+    </md-autocomplete>
+    <md-button class="md-raised md-primary search" ng-click="searchCourse()"> Search </md-button>
+  </form>
+
   </div>
   <br>
 

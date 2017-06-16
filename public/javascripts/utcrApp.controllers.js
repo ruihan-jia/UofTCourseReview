@@ -23,7 +23,7 @@ angular.module('utcrApp')
   }])
 
 
-  .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$cookies', '$location', '$mdDialog', function ($scope, $routeParams, Courses, Reviews, $cookies, $location, $mdDialog) {
+  .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$cookies', '$location', '$mdDialog', 'AutoComp', function ($scope, $routeParams, Courses, Reviews, $cookies, $location, $mdDialog, AutoComp) {
 
     //initial setup
     $scope.CID = $routeParams.id;
@@ -138,8 +138,14 @@ angular.module('utcrApp')
 	}
 */
         $scope.searchCourse = function(){
-          $location.url('/course/' + $scope.courseID);
+          $location.url('/course/' + $scope.searchText);
         }
+
+    $scope.query = function(searchText){
+      //get autocomplete results from server
+      return AutoComp.query({term: searchText }).$promise;
+    }
+
 
 	$scope.submitReview = function() {
 	  console.log($scope.ratings[0].current);
