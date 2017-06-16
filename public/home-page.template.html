@@ -1,9 +1,8 @@
-
 <div class="home-body">
       <h1>University of Toronto Course Review</h1>
       <p>Work in progress. For testing data, enter ece496, ece411 or aps111</p>
 
-  <form name="searchForm" ng-submit="search()" ng-controller="HomeController">
+  <form id="searchForm" ng-submit="search()" ng-controller="HomeController">
     <md-autocomplete flex="2" class="autocomp" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
       <md-item-template>
         <span md-highlight-text="searchText">{{item._id}} - {{item.name}}</span>

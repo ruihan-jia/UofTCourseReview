@@ -37,25 +37,21 @@ a {
 
 .home-body {
   text-align: center;
+  margin-top: 100px;
 }
 
-.course-input {
-  padding: 5px;
-  font-size:150%;
-}
-
-.course-searchBTN {
-  padding: 5px;
-  font-size:150%;
+#searchForm {
+  margin:10px;
 }
 
 .md-button.md-raised.search {
 }
 
 .autocomp {
-  width: 40%;
-  margin:auto;
-  min-width: 300px
+  display: inline-block;
+  vertical-align: middle;
+  width: 30%;
+  min-width: 300px;
 }
 
 
@@ -67,8 +63,31 @@ a {
   margin: 10px;
 }
 
-.top-search {
+.course-topSearch {
+  margin: 10px;
 }
+
+.course-searchInput {
+  float:left;
+}
+
+.md-button.md-raised.course-searchBTN {
+  background-color: #99ccff;
+  margin:3px;
+  margin-left: 30px;
+}
+.md-button.md-raised.course-searchBTN:not([disabled]):hover {
+  background-color: #84c1ff;
+}
+
+
+.course-autocomp {
+  display: inline-block;
+  width: 40%;
+  min-width: 300px;
+}
+
+
 
 .course-section {
 }
@@ -206,9 +225,9 @@ a {
 @media only screen and (min-width: 768px) {
 
   .review-body {
-    margin: 10px;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin: auto;
+    width: 80%;
+    max-width: 900px;
   }
 
   .course-section {
