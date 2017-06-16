@@ -54,7 +54,8 @@ a {
 
 .autocomp {
   width: 40%;
-  margin:auto
+  margin:auto;
+  min-width: 300px
 }
 
 

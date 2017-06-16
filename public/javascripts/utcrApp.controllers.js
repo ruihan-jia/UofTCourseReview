@@ -6,7 +6,8 @@ angular.module('utcrApp')
     //$scope.editing = [];
     //$scope.courses = Courses.query();
     $scope.search = function(){
-      $location.url('/course/' + $scope.selectedItem._id);
+      //console.log($scope.searchText);
+      $location.url('/course/' + $scope.searchText);
     }
 
     $scope.query = function(searchText){

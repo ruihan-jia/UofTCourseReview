@@ -98,8 +98,9 @@ router.get('/review', function(req, res, next) {
     var param3 = 'CourseReviews';
 
 
-    //find the course in course info
-    CourseInfo.find({id: new RegExp('^' + querycid)}).sort({year:-1}).exec(function (err, post) {
+    //find the course in course info code. has to be exact match
+    //CourseInfo.find({id: new RegExp('^' + querycid)}).sort({year:-1}).exec(function (err, post) {
+    CourseInfo.find({code:querycid}).sort({year:-1}).exec(function (err, post) {
       if(err) return next(err);
       if(!post) {
 	console.log("course not found");
