@@ -43,13 +43,14 @@ router.get('/autocomplete', function(req, res, next) {
     res.json({status:2, errmsg: "missing parameters"});
   }else {
     console.log("API: autocomplete query " + req.query.term);
-    var queryTerm = req.query.term.toUpperCase();
+    var queryTerm = req.query.term;
+    var queryTermUpp = queryTerm.toUpperCase();
     console.log("query term: " + queryTerm);
 
 //find code similar to query term, then group by same code and chose first name
     CourseInfo.aggregate(
       [
-        {$match: {code: new RegExp('^' + queryTerm)}},
+        {$match: {code: new RegExp('^' + queryTermUpp)}},
         {$group:
           {
 	    _id: "$code",
@@ -64,7 +65,38 @@ router.get('/autocomplete', function(req, res, next) {
           console.log(err);
         }
         console.log(results);
-	res.json(results);
+
+	if (!results.length) {
+	  console.log("no course code");
+
+	  CourseInfo.aggregate(
+	    [
+              {$match: {name: new RegExp(queryTerm, "i")}},
+              {$group:
+		{
+		  _id: "$code",
+		  name: {$first: "$name"}
+              	}
+              },
+	      {$sort: {"_id":1}},
+	      {$limit:10}
+
+	    ],
+	    function(err, results) {
+	      if(err){
+		console.log(err);
+	      }
+
+	      console.log(results);
+	      res.json(results);
+
+	    }
+
+	  );
+
+	} else
+	  res.json(results);
+
       }
     );
 
@@ -102,13 +134,14 @@ router.get('/review', function(req, res, next) {
     //CourseInfo.find({id: new RegExp('^' + querycid)}).sort({year:-1}).exec(function (err, post) {
     CourseInfo.find({code:querycid}).sort({year:-1}).exec(function (err, post) {
       if(err) return next(err);
-      if(!post) {
+      if(!post.length) {
 	console.log("course not found");
+        res.json({status:4, errmsg: "course not found"});
 	return next(err);
       }
 
       console.log("course info found");
-      //console.log(post);
+      console.log(post);
 
       response[param1] = post[0];
 

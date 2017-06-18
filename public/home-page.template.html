@@ -3,7 +3,7 @@
       <p>Work in progress. For testing data, enter ece496, ece411 or aps111</p>
 
   <form id="searchForm" ng-submit="search()" ng-controller="HomeController">
-    <md-autocomplete flex="2" class="autocomp" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
+    <md-autocomplete class="autocomp" md-selected-item-change="search()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
       <md-item-template>
         <span md-highlight-text="searchText">{{item._id}} - {{item.name}}</span>
       </md-item-template>

@@ -50,8 +50,9 @@ a {
 .autocomp {
   display: inline-block;
   vertical-align: middle;
-  width: 30%;
-  min-width: 300px;
+  width: 40%;
+  min-width: 250px;
+  max-width: 400px;
 }
 
 
@@ -73,8 +74,6 @@ a {
 
 .md-button.md-raised.course-searchBTN {
   background-color: #99ccff;
-  margin:3px;
-  margin-left: 30px;
 }
 .md-button.md-raised.course-searchBTN:not([disabled]):hover {
   background-color: #84c1ff;
@@ -84,10 +83,16 @@ a {
 .course-autocomp {
   display: inline-block;
   width: 40%;
-  min-width: 300px;
+  min-width: 250px;
+  max-width: 400px;
+  vertical-align: middle;
 }
 
-
+/* for bug fix */
+.md-scroll-mask {
+  position: initial;
+  display: none;
+}
 
 .course-section {
 }

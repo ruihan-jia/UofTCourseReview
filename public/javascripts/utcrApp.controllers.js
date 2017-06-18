@@ -100,12 +100,17 @@ angular.module('utcrApp')
 	//get reviews from server
         Reviews.get({cid: $routeParams.id }, function(data) {
           console.log(data);
-	  console.log(data.CourseRating);
-	  var jsonres = data;
-          $scope.courseInfoRes = jsonres.CourseInfo;
-          $scope.courseRatingRes = jsonres.CourseRating;
-          $scope.reviewResponse = jsonres.CourseReviews;
- 
+	  //console.log(data.CourseRating);
+	  if(data.courseInfo) {
+	    console.log("course info exists");
+	    var jsonres = data;
+            $scope.courseInfoRes = jsonres.CourseInfo;
+            $scope.courseRatingRes = jsonres.CourseRating;
+            $scope.reviewResponse = jsonres.CourseReviews;
+	  }else {
+	    console.log("course does not exist");
+	  }
+
         });
 
 	//cookies
@@ -119,6 +124,8 @@ angular.module('utcrApp')
 	else {
 	  $scope.written = false;
 	}
+
+//	angular.element('.md-scroll-mask').remove();
 
 
 	//----------

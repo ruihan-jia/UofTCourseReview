@@ -2,19 +2,15 @@
 <div class="review-body">
   <div class="course-topSearch">
   <form name="searchFormTop" ng-submit="searchCourse()" ng-controller="CourseController">
-    <div class="course-searchInput">
-      <md-autocomplete flex="2" class="course-autocomp" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
-        <md-item-template>
-          <span md-highlight-text="searchText">{{item._id}} - {{item.name}}</span>
-        </md-item-template>
-        <md-not-found>
-          No matches found.
-        </md-not-found>
-      </md-autocomplete>
-    </div>
-    <div>
-      <md-button class="md-raised md-primary course-searchBTN" ng-click="searchCourse()"> Search </md-button>
-    </div>
+    <md-autocomplete class="course-autocomp" md-selected-item-change="searchCourse()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
+      <md-item-template>
+        <span md-highlight-text="searchText">{{item._id}} - {{item.name}}</span>
+      </md-item-template>
+      <md-not-found>
+        No matches found.
+      </md-not-found>
+    </md-autocomplete>
+    <md-button class="md-raised md-primary course-searchBTN" ng-click="searchCourse()"> Search </md-button>
   </form>
 
   </div>
