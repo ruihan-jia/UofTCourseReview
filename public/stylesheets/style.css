@@ -357,3 +357,18 @@ pd {
 .ratingStarDiv {
   display: inline-block;
 }
+
+
+/* not found */
+
+.notFound-section {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* progress */
+
+.progress-section {
+  margin: auto;
+  margin-top: 50px;
+}

@@ -1,22 +1,20 @@
   
 <div class="review-body">
   <div class="course-topSearch">
-  <form name="searchFormTop" ng-submit="searchCourse()" ng-controller="CourseController">
-    <md-autocomplete class="course-autocomp" md-selected-item-change="searchCourse()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
-      <md-item-template>
-        <span md-highlight-text="searchText">{{item._id}} - {{item.name}}</span>
-      </md-item-template>
-      <md-not-found>
-        No matches found.
-      </md-not-found>
-    </md-autocomplete>
-    <md-button class="md-raised md-primary course-searchBTN" ng-click="searchCourse()"> Search </md-button>
-  </form>
-
+    <form name="searchFormTop" ng-submit="searchCourse()" ng-controller="CourseController">
+      <md-autocomplete class="course-autocomp" md-selected-item-change="searchCourse()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
+        <md-item-template>
+          <span md-highlight-text="searchText">{{item._id}} - {{item.name}}</span>
+        </md-item-template>
+        <md-not-found>
+          No matches found.
+        </md-not-found>
+      </md-autocomplete>
+      <md-button class="md-raised md-primary course-searchBTN" ng-click="searchCourse()"> Search </md-button>
+    </form>
   </div>
-  <br>
 
-  <div class="course-section">
+  <div class="course-section" ng-if="courseExist && !loading">
     <div class="course-info">
       <h1>{{ courseInfoRes.code }}</h1>
       <h2>{{courseInfoRes.name}}</h2>
@@ -39,12 +37,10 @@
     </div>
   </div>
 
-  <div class="review-section">
-
+  <div class="review-section" ng-if="courseExist && !loading">
 
 <!--    <md-button class="md-raised write-review" ng-click="writeReview()"> Write Review </md-button> -->
     <md-button class="md-raised write-review" ng-click="showDialogWriteReview()"> Write Review </md-button>
-
 
     <div class="reviews-container">
       <li ng-repeat="review in reviewResponse | orderBy:review:true" class="reviews-li">
@@ -68,12 +64,14 @@
 	</div>
       </li>
     </div>
-
-<!--
-    <p> Raw course response: {{courseInfoRes}} </p>
-    <p> Raw review response: {{reviewResponse}} </p>
--->
   </div>
+
+  <div class="notFound-section" ng-if="!courseExist && !loading">
+    <h1>This Course does not exist!</h1>
+
+  </div>
+
+  <md-progress-circular class="progress-section" md-mode="indeterminate" ng-if="loading" md-diameter="100"></md-progress-circular>
 
 
 </div>

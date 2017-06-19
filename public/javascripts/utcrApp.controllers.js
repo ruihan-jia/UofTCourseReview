@@ -27,7 +27,8 @@ angular.module('utcrApp')
 
     //initial setup
     $scope.CID = $routeParams.id;
-    $scope.courseID = angular.copy($scope.CID)
+    $scope.courseID = angular.copy($scope.CID);
+    $scope.loading = true;
 
     $scope.rating = 0;
     $scope.ratings = [
@@ -100,15 +101,18 @@ angular.module('utcrApp')
 	//get reviews from server
         Reviews.get({cid: $routeParams.id }, function(data) {
           console.log(data);
+	  $scope.loading=false;
 	  //console.log(data.CourseRating);
-	  if(data.courseInfo) {
+	  if(data.CourseInfo) {
 	    console.log("course info exists");
 	    var jsonres = data;
             $scope.courseInfoRes = jsonres.CourseInfo;
             $scope.courseRatingRes = jsonres.CourseRating;
             $scope.reviewResponse = jsonres.CourseReviews;
+	    $scope.courseExist = true;
 	  }else {
 	    console.log("course does not exist");
+	    $scope.courseExist = false;
 	  }
 
         });
