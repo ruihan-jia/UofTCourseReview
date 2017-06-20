@@ -108,8 +108,17 @@ angular.module('utcrApp')
 	    var jsonres = data;
             $scope.courseInfoRes = jsonres.CourseInfo;
             $scope.courseRatingRes = jsonres.CourseRating;
+	    if(jsonres.CourseRating == null || jsonres.CourseRating.hard == 0) {
+	      $scope.ratingExist = false;
+	      $scope.courseRatingRes.hard = "n/a";
+	      $scope.courseRatingRes.useful = "n/a";
+	      $scope.courseRatingRes.interest = "n/a";
+	    } else
+	      $scope.ratingExist = true;
             $scope.reviewResponse = jsonres.CourseReviews;
 	    $scope.courseExist = true;
+
+
 	  }else {
 	    console.log("course does not exist");
 	    $scope.courseExist = false;

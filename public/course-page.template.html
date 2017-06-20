@@ -24,25 +24,33 @@
     <div class="course-rating">
       <div class="rating-block">
         <p class="rating-text"> Hardness: </p>
-        <p class="rating-number"> {{courseRatingRes.hard | number:2}} </p>
+        <p class="rating-number" ng-if="ratingExist"> {{courseRatingRes.hard | number:2}} </p>
+        <p class="rating-number" ng-if="!ratingExist"> {{courseRatingRes.hard}} </p>
       </div>
       <div class="rating-block">
         <p class="rating-text"> Usefulness:</p>
-        <p class="rating-number"> {{courseRatingRes.useful | number:2}} </p>
+        <p class="rating-number" ng-if="ratingExist"> {{courseRatingRes.useful | number:2}} </p>
+        <p class="rating-number" ng-if="!ratingExist"> {{courseRatingRes.useful}} </p>
       </div>
       <div class="rating-block">
         <p class="rating-text"> Interest: </p>
-        <p class="rating-number"> {{courseRatingRes.interest | number:2}} </p>
+        <p class="rating-number" ng-if="ratingExist"> {{courseRatingRes.interest | number:2}} </p>
+        <p class="rating-number" ng-if="!ratingExist"> {{courseRatingRes.interest}} </p>
       </div>
     </div>
   </div>
 
   <div class="review-section" ng-if="courseExist && !loading">
-
-<!--    <md-button class="md-raised write-review" ng-click="writeReview()"> Write Review </md-button> -->
     <md-button class="md-raised write-review" ng-click="showDialogWriteReview()"> Write Review </md-button>
 
+    <div ng-show="test">
+      <p>test</p>
+    </div>
+  </div>
+
+  <div class="review-section" ng-if="courseExist && !loading">
     <div class="reviews-container">
+      <h2 class="reviews-title">Reviews: </h2>
       <li ng-repeat="review in reviewResponse | orderBy:review:true" class="reviews-li">
         <div class="review-rate-container">
           <div class="review-rate-block">
