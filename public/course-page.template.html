@@ -43,9 +43,56 @@
   <div class="review-section" ng-if="courseExist && !loading">
     <md-button class="md-raised write-review" ng-click="showDialogWriteReview()"> Write Review </md-button>
 
-    <div ng-show="test">
-      <p>test</p>
-    </div>
+    <md-content layout-padding class="review-form" ng-if="reviewFormActive">
+      <md-list>
+	<md-list-item class="rating-list-item" ng-repeat="rating in ratings">
+       	  <div star-rating rating-value="rating.current" max="rating.max" namef="rating.namef" namel="rating.namel" on-rating-selected="getSelectedRating(rating)"></div>
+	</md-list-item>
+      </md-list>
+
+      <div class="info1">
+
+        <md-input-container class="year-container" flex-gt-sm>
+          <label>Year</label>
+          <md-select ng-model="selectedYear">
+            <md-option ng-repeat="year in years" ng-value="year">
+              {{year}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+	<md-input-container class="prof-container">
+	  <label>Instructor:</label>
+	  <input type="text" ng-model="prof" maxlength=32>
+	</md-input-container>
+      </div>
+
+      <md-input-container class="md-block">
+        <label>Comment:</label>
+        <textarea ng-model="reviewComment" md-maxlength="300" maxlength="300" rows="5"></textarea>
+      </md-input-container>
+
+      <div class="dialog-buttons">
+	<md-button ng-click="closeDialog()" class="md-raised cancelReview">
+          Cancel
+	</md-button>
+	<md-button ng-click="submitReview()" class="md-primary md-raised submitReview">
+          Submit Review
+	</md-button>
+      </div>
+    </md-content>
+
+<!--
+    <md-content layout-padding class="review-form" ng-hide="myCheck">
+        <form name="userForm">
+          <md-input-container class="md-block">
+            <label>Comment:</label>
+            <textarea ng-model="reviewComment" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+          </md-input-container>
+        </form>
+    </md-content>
+-->
+
   </div>
 
   <div class="review-section" ng-if="courseExist && !loading">

@@ -29,6 +29,10 @@ angular.module('utcrApp')
     $scope.CID = $routeParams.id;
     $scope.courseID = angular.copy($scope.CID);
     $scope.loading = true;
+    $scope.reviewFormActive = false;
+    $scope.reviewComment = "";
+    $scope.prof = "";
+    $scope.selectedYear = 0;
 
     $scope.rating = 0;
     $scope.ratings = [
@@ -55,7 +59,7 @@ angular.module('utcrApp')
     $scope.ReviewModal = false;
     $scope.MsgModal = false;
 
-    $scope.years = [2017, 2016, 2015];
+    $scope.years = [2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007];
 
 
 
@@ -77,6 +81,10 @@ angular.module('utcrApp')
     $scope.showDialogWriteReview = function($event) {
       console.log("write review pressed");
 
+      $scope.reviewFormActive = !$scope.reviewFormActive;
+
+/*
+      //old write review no longer used
       var parentEl = angular.element(document.body);
       $mdDialog.show({
         parent: parentEl,
@@ -85,11 +93,12 @@ angular.module('utcrApp')
         scope:$scope,
 	preserveScope: true,
       });
+*/
     }
 
     $scope.closeDialog = function() {
       console.log("write review closed");
-      $mdDialog.hide();
+      $scope.reviewFormActive = false;
     }
 
 
@@ -168,6 +177,7 @@ angular.module('utcrApp')
 
 
 	$scope.submitReview = function() {
+	  console.log($scope);
 	  console.log($scope.ratings[0].current);
 	  console.log($scope.ratings[1].current);
 	  console.log($scope.ratings[2].current);
@@ -219,7 +229,7 @@ angular.module('utcrApp')
 		}
 	      }
 	    );
-	    $scope.ReviewModal = false;  
+	    $scope.ReviewModal = false;
             $mdDialog.hide();
 	  }
 	  else {
@@ -245,6 +255,8 @@ angular.module('utcrApp')
     	}
 
     }])
+
+
 
 //star rating taken from: http://stackoverflow.com/questions/23646395/rendering-a-star-rating-system-using-angularjs
 

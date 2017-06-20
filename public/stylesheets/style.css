@@ -64,6 +64,8 @@ a {
   margin: 10px;
 }
 
+/* top search */
+
 .course-topSearch {
   margin: 10px;
 }
@@ -93,6 +95,8 @@ a {
   position: initial;
   display: none;
 }
+
+/* course info section */
 
 .course-section {
 }
@@ -134,6 +138,8 @@ a {
   font-weight: bold;
 }
 
+/* write review section */
+
 .md-button.md-raised.write-review {
   font-size: 20px;
   height:60px;
@@ -143,6 +149,105 @@ a {
 .md-button.md-raised:not([disabled]):hover {
   background-color: #84c1ff;
 }
+
+.review-form {
+/*  transition: all linear 0.2s;*/
+  height: 500px;
+  display: initial;
+}
+
+/*
+pd {
+  display:block;
+  magin-bottom: 5px;
+}
+
+.dialogWriteReview {
+  width: 90%;
+  max-width: 600px;
+  height: 430px;
+  padding: 10px;
+}
+
+.dialog-title {
+  margin-bottom: 0px;
+}
+*/
+
+.rating-list-item {
+  font-size: 20px;
+  margin-top: -5px;
+}
+/*
+.inputComment {
+  width: 97%;
+  height: 110px;
+}
+*/
+.info1 {
+  display:flex;
+}
+
+.year-container {
+  flex: 1;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.prof-container {
+  flex: 2;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/*
+.info2 {
+  margin-top:10px;
+}
+*/
+
+textarea {
+  min-height: 110px;
+}
+
+.comment-textarea {
+  height: 110px;
+}
+
+.dialog-buttons {
+  margin-top:10px;
+  text-align:right;
+}
+
+.md-button.md-raised.submitReview {
+  background-color: #99ccff;
+  color: black;
+}
+.md-button.md-raised.submitReview:not([disabled]):hover {
+  background-color: #84c1ff;
+}
+
+
+.md-button.cancelReview:not([disabled]):hover {
+  background-color: #f2f2f2;
+}
+
+
+.ratingNameDiv {
+  display: inline-block;
+  width: 110px;
+  text-align: right;
+}
+
+.ratingStarDiv {
+  display: inline-block;
+}
+
+
+
+
+
+/* review section */
 
 .review-section {
   margin-bottom: 30px;
@@ -286,82 +391,6 @@ ul.rating {
   color: #21568b;
 }
 
-
-/* dialog */
-
-pd {
-  display:block;
-  magin-bottom: 5px;
-}
-
-.dialogWriteReview {
-  width: 90%;
-  max-width: 600px;
-  height: 430px;
-  padding: 10px;
-}
-
-.dialog-title {
-  margin-bottom: 0px;
-}
-
-.rating-list-item {
-  font-size: 20px;
-  margin-top: -5px;
-}
-
-.inputComment {
-  width: 97%;
-  height: 110px;
-}
-
-.info1 {
-  display:block;
-}
-
-.info1year {
-  width: 29%;
-  display:inline-block;
-  margin-bottom: -10px;
-}
-
-.info1prof {
-  width: 69%;
-  display:inline-block;
-}
-
-.info2 {
-  margin-top:10px;
-}
-
-.dialog-buttons {
-  margin-top:10px;
-  text-align:right;
-}
-
-.md-button.md-raised.submitReview {
-  background-color: #99ccff;
-  color: black;
-}
-.md-button.md-raised.submitReview:not([disabled]):hover {
-  background-color: #84c1ff;
-}
-
-
-.md-button.cancelReview:not([disabled]):hover {
-  background-color: #f2f2f2;
-}
-
-
-.ratingNameDiv {
-  display: inline-block;
-  width: 110px;
-  text-align: right;
-}
-
-.ratingStarDiv {
-  display: inline-block;
-}
 
 
 /* not found */

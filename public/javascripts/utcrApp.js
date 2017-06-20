@@ -1,6 +1,6 @@
 
 
-angular.module('utcrApp', ['ngMaterial', 'ngRoute', 'ngResource', 'ngCookies'])
+angular.module('utcrApp', ['ngMaterial', 'ngRoute', 'ngResource', 'ngCookies', 'ngAnimate'])
     //---------------
     // Services
     //---------------
