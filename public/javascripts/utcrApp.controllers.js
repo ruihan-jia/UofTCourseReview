@@ -30,9 +30,7 @@ angular.module('utcrApp')
     $scope.courseID = angular.copy($scope.CID);
     $scope.loading = true;
     $scope.reviewFormActive = false;
-    $scope.reviewComment = "";
-    $scope.prof = "";
-    $scope.selectedYear = 0;
+    $scope.formInfo = {};
 
     $scope.rating = 0;
     $scope.ratings = [
@@ -96,7 +94,7 @@ angular.module('utcrApp')
 */
     }
 
-    $scope.closeDialog = function() {
+    $scope.closeForm = function() {
       console.log("write review closed");
       $scope.reviewFormActive = false;
     }
@@ -181,32 +179,27 @@ angular.module('utcrApp')
 	  console.log($scope.ratings[0].current);
 	  console.log($scope.ratings[1].current);
 	  console.log($scope.ratings[2].current);
-	  console.log($scope.selectedYear);
-	  console.log($scope.prof);
-	  console.log($scope.reviewComment);
+	  console.log($scope.formInfo.selectedYear);
+	  console.log($scope.formInfo.prof);
+	  console.log($scope.formInfo.reviewComment);
 
 	  var review = new Reviews();
 	  review.cid = $scope.courseID;
-	  review.year = $scope.selectedYear;
 	  review.hard = $scope.ratings[0].current;
 	  review.useful = $scope.ratings[1].current;
 	  review.interest = $scope.ratings[2].current;
-	  review.prof = $scope.prof;
-	  review.comment = $scope.reviewComment;
+	  review.year = $scope.formInfo.selectedYear;
+	  review.prof = $scope.formInfo.prof;
+	  review.comment = $scope.formInfo.reviewComment;
 	  console.log(review);
 
-	  if(review.hard != -1 && review.useful != -1 && review.interest != -1 && !angular.isUndefined($scope.selectedYear)){
+	  if(review.hard != -1 && review.useful != -1 && review.interest != -1 && !angular.isUndefined($scope.formInfo.selectedYear)){
 	    review.$save().then(
 	      function(res) {
 		console.log(res)
 		if(res.status == 0) {
 		  $cookies.put(cookieName, 1);
 		  $scope.written = true;
-/*
-		  $scope.MsgTitle = "Success";
-		  $scope.MsgBody = "Review submitted. Thank you!";
-		  $scope.MsgModal = true;
-*/
 		  alertInfo = $mdDialog.alert({
 	            title: 'Submission Success',
         	    textContent: 'Review submitted. Thank you!',
@@ -215,11 +208,6 @@ angular.module('utcrApp')
 		  $scope.showAlert();
 
 		} else {
-/*
-		  $scope.MsgTitle = "Failed";
-		  $scope.MsgBody = "Review was not submitted. " + res.errmsg;
-		  $scope.MsgModal = true;
-*/
 		  alertInfo = $mdDialog.alert({
 	            title: 'Submission failed',
         	    textContent: 'Review was not submitted.',
@@ -235,7 +223,6 @@ angular.module('utcrApp')
 	  else {
 	    $scope.MsgTitle = "Failed";
 	    $scope.MsgBody = "Please select all options";
-//	    $scope.MsgModal = true;
 
 	    console.log("please select all options");
 

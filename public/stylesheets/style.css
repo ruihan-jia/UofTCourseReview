@@ -177,7 +177,14 @@ pd {
 .rating-list-item {
   font-size: 20px;
   margin-top: -5px;
+  display:-webkit-box;
 }
+
+.rating-list-div {
+  margin: auto;
+
+}
+
 /*
 .inputComment {
   width: 97%;
@@ -214,7 +221,7 @@ textarea {
   height: 110px;
 }
 
-.dialog-buttons {
+.form-buttons {
   margin-top:10px;
   text-align:right;
 }
