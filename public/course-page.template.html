@@ -23,7 +23,7 @@
     </div>
     <div class="course-rating">
       <div class="rating-block">
-        <p class="rating-text"> Hardness: </p>
+        <p class="rating-text"> Difficulty: </p>
         <p class="rating-number" ng-if="ratingExist"> {{courseRatingRes.hard | number:2}} </p>
         <p class="rating-number" ng-if="!ratingExist"> {{courseRatingRes.hard}} </p>
       </div>
@@ -71,9 +71,9 @@
 	</md-input-container>
       </div>
 
-      <md-input-container class="md-block">
+      <md-input-container class="md-block comment-container">
         <label>Comment:</label>
-        <textarea ng-model="formInfo.reviewComment" md-maxlength="300" maxlength="300" rows="5"></textarea>
+        <textarea ng-model="formInfo.reviewComment" md-maxlength="300" maxlength="300" rows="4"></textarea>
       </md-input-container>
 
       <div class="form-buttons">
@@ -86,26 +86,16 @@
       </div>
     </md-content>
 
-<!--
-    <md-content layout-padding class="review-form" ng-hide="myCheck">
-        <form name="userForm">
-          <md-input-container class="md-block">
-            <label>Comment:</label>
-            <textarea ng-model="reviewComment" md-maxlength="150" rows="5" md-select-on-focus></textarea>
-          </md-input-container>
-        </form>
-    </md-content>
--->
-
   </div>
 
   <div class="review-section" ng-if="courseExist && !loading">
     <div class="reviews-container">
       <h2 class="reviews-title">Reviews: </h2>
       <li ng-repeat="review in reviewResponse | orderBy:review:true" class="reviews-li">
-        <div class="review-rate-container">
+        <div class="review-info-left">
+	<div class="review-rate-container">
           <div class="review-rate-block">
-	    <p class="review-rate-text">Hard: <span class="review-rate-number">{{review.hard}} </span></p>
+	    <p class="review-rate-text">Difficult: <span class="review-rate-number">{{review.hard}} </span></p>
 	  </div>
           <div class="review-rate-block">
 	    <p class="review-rate-text">Useful: <span class="review-rate-number">{{review.useful}} </span></p>
@@ -115,11 +105,18 @@
 	  </div>
         </div>
 	<div class="review-info-container">
-          <p class="review-info-text"> Prof: <span class="review-info-content"> {{review.prof}} </span></p>
-	  <p class="review-info-text"> year: <span class="review-info-content"> {{review.year}} </span></p>
+          <p class="review-info-text"> Instructor: <span class="review-info-content"> {{review.prof}} </span></p>
+	  <p class="review-info-text"> Year: <span class="review-info-content"> {{review.year}} </span></p>
 	</div>
+	</div>
+	<div class="review-info-right">
 	<div class="review-comment-container">
-          <p class="review-comment-text"> comment: <span class="review-comment-content"> {{review.comment}} </span></p>
+          <p class="review-comment-text"> Comment: </p>
+	  <p class="review-comment-content"> {{review.comment}} </p>
+	</div>
+	<div class="review-date-container">
+	  <p> {{review.updated_at}} </p>
+	</div>
 	</div>
       </li>
     </div>
