@@ -155,11 +155,12 @@ router.get('/review', function(req, res, next) {
 
         if(!post) {
 	  console.log("no match");
+	  post = {cid:querycid, hard: 0, useful: 0, interest: 0};
 	  //need to create new rating course
+
           Course.create({cid: querycid, hard: 0, useful: 0, interest: 0}, function (err, post) {
             if (err) {
               console.log(err);
-              return next(err);
             }
             console.log("saved to database");
 	  })
@@ -175,15 +176,12 @@ router.get('/review', function(req, res, next) {
         //find the list of reviews of that course
         Review.find({cid:querycid}, function (err, post2) {
           if (err) return next(err);
-          console.log(response)
           response[param3] = post2;
 
           console.log(response);
 	  res.send(response);
         });
       });
-
-
     });
   }
 });

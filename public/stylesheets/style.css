@@ -315,17 +315,16 @@ a {
   }
 
   .course-section {
-    display:table;
+    display:flex;
   }
 
   .course-info {
-    float:left;
-    width: 70%;
+    flex: 4;
   }
 
   .course-rating {
-    float:right;
-    width:18%;
+    flex: 1;
+    margin-left: 20px;
   }
 
   .rating-block {
