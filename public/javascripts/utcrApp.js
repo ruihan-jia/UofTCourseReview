@@ -19,7 +19,7 @@ angular.module('utcrApp', ['ngMaterial', 'ngRoute', 'ngResource', 'ngCookies', '
     //---------------
     // Routes
     //---------------
-    .config(['$routeProvider', function ($routeProvider) {
+    .config(['$routeProvider', '$mdThemingProvider', function ($routeProvider, $mdThemingProvider) {
       $routeProvider
         .when('/', {
           templateUrl: 'home-page.template.html',
@@ -29,4 +29,8 @@ angular.module('utcrApp', ['ngMaterial', 'ngRoute', 'ngResource', 'ngCookies', '
           templateUrl: 'course-page.template.html',
           controller: 'CourseController'
        });
+      $mdThemingProvider.theme('default')
+        .primaryPalette('blue')
+        .accentPalette('pink');
     }]);
+

@@ -2,19 +2,18 @@ body {
   margin: 0px;
   margin-top: -5px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #f9f9f9;
+  background-color: #f1f1f1;
+  height: fit-content;
 }
 
 a {
   color: #00B7FF;
 }
 
-
-
 .site-header {
   border-top: 1px solid grey;
   border-bottom: 1px solid grey;
-  background-color: #99ccff;
+  background-color: #2196F3;
   padding: 10px;
 }
 
@@ -22,18 +21,20 @@ a {
   margin-left: 15px;
   font-size: 150%;
   font-weight: bold;
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
 .site-title:visited {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
 
 
-/* home page */
+
+
+/* ============ home page ==============*/
 
 .home-body {
   text-align: center;
@@ -44,8 +45,6 @@ a {
   margin:10px;
 }
 
-.md-button.md-raised.search {
-}
 
 .autocomp {
   display: inline-block;
@@ -58,7 +57,7 @@ a {
 
 
 
-/* review page */
+/*=============== review page ===============*/
 
 .review-body {
   margin: 10px;
@@ -74,14 +73,6 @@ a {
   float:left;
 }
 
-.md-button.md-raised.course-searchBTN {
-  background-color: #99ccff;
-}
-.md-button.md-raised.course-searchBTN:not([disabled]):hover {
-  background-color: #84c1ff;
-}
-
-
 .course-autocomp {
   display: inline-block;
   width: 40%;
@@ -92,7 +83,6 @@ a {
 
 /* for bug fix */
 .md-scroll-mask {
-  position: initial;
   display: none;
 }
 
@@ -140,15 +130,12 @@ a {
 
 /* write review section */
 
-.md-button.md-raised.write-review {
+.md-raised.md-primary.write-review {
   font-size: 20px;
   height:60px;
   width: 70%;
-  background-color: #99ccff;
 }
-.md-button.md-raised:not([disabled]):hover {
-  background-color: #84c1ff;
-}
+
 
 .review-form {
 /*  transition: all linear 0.2s;*/
@@ -166,6 +153,11 @@ a {
 .rating-list-div {
   margin: auto;
 
+}
+
+
+label {
+  color:black;
 }
 
 .info1 {
@@ -192,25 +184,17 @@ a {
 .form-buttons {
   text-align:right;
 }
-
-.md-button.md-raised.submitReview {
-  background-color: #99ccff;
-  color: black;
-}
-.md-button.md-raised.submitReview:not([disabled]):hover {
-  background-color: #84c1ff;
-}
-
-
+/*
 .md-button.cancelReview:not([disabled]):hover {
   background-color: #f2f2f2;
 }
-
+*/
 
 .ratingNameDiv {
   display: inline-block;
   width: 110px;
   text-align: right;
+  color: black;
 }
 
 .ratingStarDiv {
@@ -239,7 +223,7 @@ a {
 }
 
 .reviews-title {
-  text-align:left;
+  text-align:center;
   margin-left:10px;
 }
 
@@ -249,7 +233,7 @@ a {
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
-  border-color: #99ccff;
+  border-color: #2196F3;
   padding-left: 20px;
   padding-right: 20px;
   display: block;
@@ -377,7 +361,7 @@ ul.rating {
 }
 
 .rating .filled {
-  color: #21568b;
+  color: #2196F3;
 }
 
 
@@ -394,4 +378,21 @@ ul.rating {
 .progress-section {
   margin: auto;
   margin-top: 50px;
+}
+
+
+/* ============== angular material changes =============*/
+
+
+md-input-container.md-default-theme label, md-input-container label, md-input-container.md-default-theme .md-placeholder, md-input-container .md-placeholder {
+  color: black;
+}
+
+
+/*md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, md-input-container:not(.md-input-invalid).md-input-has-value label {
+  color: black;
+}*/
+
+md-select.md-default-theme .md-select-value.md-select-placeholder, md-select .md-select-value.md-select-placeholder {
+  color: black;
 }

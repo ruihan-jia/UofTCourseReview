@@ -2,7 +2,7 @@
 <div class="review-body">
   <div class="course-topSearch">
     <form name="searchFormTop" ng-submit="searchCourse()">
-      <md-autocomplete class="course-autocomp" md-selected-item-change="searchCourse()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
+      <md-autocomplete class="course-autocomp" md-selected-item-change="autoCompOnSelect()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id" md-min-length="2">
         <md-item-template>
           <span md-highlight-text="searchText">{{item._id}} - {{item.name}}</span>
         </md-item-template>
@@ -44,7 +44,7 @@
   <div class="review-section" ng-if="courseExist && !loading">
 
 
-    <md-button class="md-raised write-review" ng-click="showDialogWriteReview()"> Write Review </md-button>
+    <md-button class="md-raised md-primary write-review" ng-click="showDialogWriteReview()"> Write Review </md-button>
 
 
     <md-content layout-padding class="review-form" ng-if="reviewFormActive">
@@ -90,7 +90,8 @@
 
   <div class="review-section" ng-if="courseExist && !loading">
     <div class="reviews-container">
-      <h2 class="reviews-title">Reviews: </h2>
+      <h2 class="reviews-title" ng-if="reviewExist">Reviews: </h2>
+      <h2 class="reviews-title" ng-if="!reviewExist">There are no reviews yet. </h2>
       <li ng-repeat="review in reviewResponse | orderBy:review:true" class="reviews-li">
         <div class="review-info-left">
 	<div class="review-rate-container">

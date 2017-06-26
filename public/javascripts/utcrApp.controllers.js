@@ -7,7 +7,10 @@ angular.module('utcrApp')
     //$scope.courses = Courses.query();
     $scope.search = function(){
       //console.log($scope.searchText);
-      $location.url('/course/' + $scope.searchText);
+      if($scope.searchText != '')
+        $location.url('/course/' + $scope.searchText);
+      else
+	console.log("search string empty");
     }
 
     $scope.query = function(searchText){
@@ -36,7 +39,7 @@ angular.module('utcrApp')
     $scope.ratings = [
 	  {
 	    namef: 'easy',
-	    namel: 'hard',
+	    namel: 'difficult',
             current: -1,
             max: 5
     	  },
@@ -102,8 +105,12 @@ angular.module('utcrApp')
 
 
 
-
-
+//	angular.element('.md-scroll-mask').remove();
+//	var result = document.getElementsByClassName("md-scroll-mask");
+//	console.log(result);
+//	if(result.length>0)
+//	  result.parentNode.removeChild(result);
+//	$scope.$on('$destroy', $mdUtil.enableScrolling);
 
 	//get reviews from server
         Reviews.get({cid: $routeParams.id }, function(data) {
@@ -123,6 +130,10 @@ angular.module('utcrApp')
 	    } else
 	      $scope.ratingExist = true;
             $scope.reviewResponse = jsonres.CourseReviews;
+	    if(Object.keys(jsonres.CourseReviews).length)
+	      $scope.reviewExist = true;
+	    else
+	      $scope.reviewExist = false;
 	    $scope.courseExist = true;
 
 
@@ -164,8 +175,19 @@ angular.module('utcrApp')
 	  $scope.MsgModal = false;
 	}
 */
+        $scope.autoCompOnSelect = function(){
+	  setTimeout(function () {
+	    console.log("route");
+            $location.url('/course/' + $scope.searchText);
+	    $scope.$apply();
+	  }, 100);
+        }
+
         $scope.searchCourse = function(){
-          $location.url('/course/' + $scope.searchText);
+	  if($scope.searchText != '')
+            $location.url('/course/' + $scope.searchText);
+	  else
+	    console.log("search string empty");
         }
 
     $scope.query = function(searchText){
