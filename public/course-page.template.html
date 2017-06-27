@@ -1,5 +1,8 @@
-  
+<md-content class="course-container">  
 <div class="review-body">
+
+  <md-progress-circular class="submit-progress" ng-if="submitLoading" md-mode="indeterminate"  md-diameter="100"></md-progress-circular>
+
   <div class="course-topSearch">
     <form name="searchFormTop" ng-submit="searchCourse()">
       <md-autocomplete class="course-autocomp" md-selected-item-change="autoCompOnSelect()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id" md-min-length="2">
@@ -73,7 +76,7 @@
 
       <md-input-container class="md-block comment-container">
         <label>Comment:</label>
-        <textarea ng-model="formInfo.reviewComment" md-maxlength="300" maxlength="300" rows="4"></textarea>
+        <textarea ng-model="formInfo.reviewComment" md-maxlength="300" maxlength="300" rows="4" max-rows="6"></textarea>
       </md-input-container>
 
       <div class="form-buttons">
@@ -90,7 +93,7 @@
 
   <div class="review-section" ng-if="courseExist && !loading">
     <div class="reviews-container">
-      <h2 class="reviews-title" ng-if="reviewExist">Reviews: </h2>
+      <h2 class="reviews-title" ng-if="reviewExist">Reviews </h2>
       <h2 class="reviews-title" ng-if="!reviewExist">There are no reviews yet. </h2>
       <li ng-repeat="review in reviewResponse | orderBy:review:true" class="reviews-li">
         <div class="review-info-left">
@@ -113,10 +116,10 @@
 	<div class="review-info-right">
 	<div class="review-comment-container">
           <p class="review-comment-text"> Comment: </p>
-	  <p class="review-comment-content"> {{review.comment}} </p>
+	  <pre class="review-comment-content">{{review.comment}}</pre>
 	</div>
 	<div class="review-date-container">
-	  <p> {{review.updated_at}} </p>
+	  <p>submitted on: {{review.updated_at}} </p>
 	</div>
 	</div>
       </li>
@@ -134,3 +137,4 @@
 </div>
 
 
+</md-content>

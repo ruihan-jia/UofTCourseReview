@@ -26,7 +26,7 @@ angular.module('utcrApp')
   }])
 
 
-  .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$cookies', '$location', '$mdDialog', 'AutoComp', function ($scope, $routeParams, Courses, Reviews, $cookies, $location, $mdDialog, AutoComp) {
+  .controller('CourseController', ['$scope', '$routeParams', 'Courses', 'Reviews', '$cookies', '$location', '$mdDialog', 'AutoComp', '$window', function ($scope, $routeParams, Courses, Reviews, $cookies, $location, $mdDialog, AutoComp, $window) {
 
     //initial setup
     $scope.CID = $routeParams.id;
@@ -34,6 +34,7 @@ angular.module('utcrApp')
     $scope.loading = true;
     $scope.reviewFormActive = false;
     $scope.formInfo = {};
+    $scope.submitLoading = false;
 
     $scope.rating = 0;
     $scope.ratings = [
@@ -64,19 +65,32 @@ angular.module('utcrApp')
 
 
 
-    var alertInfo = $mdDialog.alert({
+    var defaultAlert = $mdDialog.alert({
         title: 'Attention',
         textContent: 'This is an example of how easy dialogs can be!',
         ok: 'Close'
     });
+    var alertInfo = defaultAlert;
 
     $scope.showAlert = function(){
       $mdDialog
         .show( alertInfo )
         .finally(function() {
-          alertInfo = undefined;
+          alertInfo = defaultAlert;
+	  console.log("alert closed");
         });
     }
+
+    $scope.showSuccess = function(){
+      $mdDialog
+        .show( alertInfo )
+        .finally(function() {
+          alertInfo = defaultAlert;
+	  console.log("success");
+	  $window.location.reload();
+        });
+    }
+
 
 
     $scope.showDialogWriteReview = function($event) {
@@ -105,12 +119,8 @@ angular.module('utcrApp')
 
 
 
-//	angular.element('.md-scroll-mask').remove();
-//	var result = document.getElementsByClassName("md-scroll-mask");
-//	console.log(result);
-//	if(result.length>0)
-//	  result.parentNode.removeChild(result);
-//	$scope.$on('$destroy', $mdUtil.enableScrolling);
+
+
 
 	//get reviews from server
         Reviews.get({cid: $routeParams.id }, function(data) {
@@ -130,9 +140,15 @@ angular.module('utcrApp')
 	    } else
 	      $scope.ratingExist = true;
             $scope.reviewResponse = jsonres.CourseReviews;
-	    if(Object.keys(jsonres.CourseReviews).length)
+	    if(Object.keys(jsonres.CourseReviews).length){
 	      $scope.reviewExist = true;
-	    else
+/*
+	      $scope.reviewResponse.forEach(function(obj) {
+		obj.comment = obj.comment.replace(/(\r\n|\n|\r)/gm, "<br />");
+		console.log(obj.comment);
+	      });
+*/
+	    } else
 	      $scope.reviewExist = false;
 	    $scope.courseExist = true;
 
@@ -162,19 +178,7 @@ angular.module('utcrApp')
 	//----------
 	//functions:
 	//----------
-/*
-	$scope.writeReview = function() {
-	  $scope.ReviewModal = true;
-	}
 
-	$scope.closeModal = function() {
-	  $scope.ReviewModal = false;
-	}
-
-	$scope.closeMsgModal = function() {
-	  $scope.MsgModal = false;
-	}
-*/
         $scope.autoCompOnSelect = function(){
 	  setTimeout(function () {
 	    console.log("route");
@@ -215,10 +219,12 @@ angular.module('utcrApp')
 	  review.comment = $scope.formInfo.reviewComment;
 	  console.log(review);
 
+	  $scope.submitLoading = true;
 	  if(review.hard != -1 && review.useful != -1 && review.interest != -1 && !angular.isUndefined($scope.formInfo.selectedYear)){
 	    review.$save().then(
 	      function(res) {
 		console.log(res)
+		$scope.submitLoading = false;
 		if(res.status == 0) {
 		  $cookies.put(cookieName, 1);
 		  $scope.written = true;
@@ -227,7 +233,7 @@ angular.module('utcrApp')
         	    textContent: 'Review submitted. Thank you!',
 	            ok: 'Close'
         	  });
-		  $scope.showAlert();
+		  $scope.showSuccess();
 
 		} else {
 		  alertInfo = $mdDialog.alert({
