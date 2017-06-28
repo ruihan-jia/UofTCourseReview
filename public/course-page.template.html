@@ -47,7 +47,7 @@
   <div class="review-section" ng-if="courseExist && !loading">
 
 
-    <md-button class="md-raised md-primary write-review" ng-click="showDialogWriteReview()"> Write Review </md-button>
+    <md-button class="md-raised md-primary write-review" ng-click="showDialogWriteReview()" ng-disabled="!written"> Write Review </md-button>
 
 
     <md-content layout-padding class="review-form" ng-if="reviewFormActive">
@@ -119,7 +119,7 @@
 	  <pre class="review-comment-content">{{review.comment}}</pre>
 	</div>
 	<div class="review-date-container">
-	  <p>submitted on: {{review.updated_at}} </p>
+	  <p>submitted on: {{review.updated_at | limitTo: 10}} </p>
 	</div>
 	</div>
       </li>

@@ -164,15 +164,14 @@ angular.module('utcrApp')
 	var cookieName = 'written' + $scope.courseID;
 	var writtenCookie = $cookies.get(cookieName);
 	console.log(writtenCookie);
-	if(writtenCookie == false) {
+	if(!writtenCookie) {
 	  $scope.written = true;
-	  $scope.written = false;
+	  //$scope.written = false;
 	}
 	else {
 	  $scope.written = false;
 	}
-
-//	angular.element('.md-scroll-mask').remove();
+	console.log($scope.written);
 
 
 	//----------
@@ -238,7 +237,7 @@ angular.module('utcrApp')
 		} else {
 		  alertInfo = $mdDialog.alert({
 	            title: 'Submission failed',
-        	    textContent: 'Review was not submitted.',
+        	    textContent: res.errmsg,
 	            ok: 'Close'
         	  });
 		  $scope.showAlert();
