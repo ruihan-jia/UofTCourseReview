@@ -4,6 +4,7 @@ var router = express.Router();
 var Course = require('../models/CourseModel.js');
 var Review = require('../models/ReviewModel.js');
 var CourseInfo = require('../models/CourseInfoModel.js');
+var ReviewLog = require('../models/ReviewLogModel.js');
 
 /* GET course information. not needed*/
 router.get('/course', function(req, res, next) {
@@ -48,7 +49,7 @@ router.get('/autocomplete', function(req, res, next) {
     var queryTermUpp = queryTerm.toUpperCase();
     console.log("query term: " + queryTerm);
 
-//find code similar to query term, then group by same code and chose first name
+    //find code similar to query term, then group by same code and chose first name
     CourseInfo.aggregate(
       [
         {$match: {code: new RegExp('^' + queryTermUpp)}},
@@ -204,19 +205,21 @@ router.post('/review', function(req, res, next) {
     comment = "";
   var ip = req.ip;
   var query = "cid: '" + cid + "', year: '" + year + "', hard: '" + hard + "', useful: '" + useful + "', interest: '" + interest + "', comment: '" + comment + "', prof: '" + prof + "', user_ip: '" + ip + "'";
-
+  var subFailed = true;
   console.log(query);
 
   //check if all parameters are present
   if(!cid || !year || !hard || !useful || !interest || !comment || !ip){
     console.log("invalid request: missing parameters");
     res.json({status:2, errmsg: "Missing Parameters"});
+    logReview(cid, ip, 2, "Missing Parameters", null);
   } else {
 
     //check if parameters are valid
     if(hard > 5 || hard < 1 || useful > 5 || useful < 1 || interest > 5 || interest < 1 || year < 2000) {
       console.log("invalid request: invalid parameters");
       res.json({status:1, errmsg: "Invalid Parameters"});
+      logReview(cid, ip, 1, "Invalid Parameters", null);
     } else {
 
       //check if the course exists in database
@@ -224,6 +227,7 @@ router.post('/review', function(req, res, next) {
         if (err) {
 	  console.log("invalid request: course not found");
           res.json({status:4, errmsg: "Course Not Found"});
+          logReview(cid, ip, 4, "Course Not Found", null);
           return next(err);
 	}
 
@@ -232,6 +236,7 @@ router.post('/review', function(req, res, next) {
 	  if(post){
 	    console.log("invalid request: ip already exists");
             res.json({status:5, errmsg: "Review has already been submitted"});
+            logReview(cid, ip, 5, "IP already exist", null);
 	  } else {
 
 	    //if found, create the review
@@ -244,6 +249,7 @@ router.post('/review', function(req, res, next) {
 
               console.log("saved to database");
               res.json({status:0, errmsg: ""});
+              logReview(cid, ip, 0, "", post._id);
 
 	      //after created review, calculate the overall result for course
 	      Review.aggregate(
@@ -294,5 +300,15 @@ router.get('/:id', function(req, res, next) {
   });
 });
 */
+
+function logReview (cid, user_ip, status, errmsg, review_id) {
+  ReviewLog.create({cid: cid, user_ip: user_ip, status: status, errmsg: errmsg, review_id: review_id}, function (err, post) {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+  });
+}
+
 
 module.exports = router;

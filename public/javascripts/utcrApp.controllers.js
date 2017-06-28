@@ -35,6 +35,7 @@ angular.module('utcrApp')
     $scope.reviewFormActive = false;
     $scope.formInfo = {};
     $scope.submitLoading = false;
+    $scope.written = true;
 
     $scope.rating = 0;
     $scope.ratings = [
