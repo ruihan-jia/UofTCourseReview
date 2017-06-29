@@ -1,9 +1,9 @@
 <div class="home-body">
       <h1>University of Toronto Course Review</h1>
-      <p>Work in progress. For testing data, enter ece496, ece411 or aps111</p>
+      <p>beta version. Search for your course and write a review.</p>
 
   <form id="searchForm" ng-submit="search()" ng-controller="HomeController">
-    <md-autocomplete class="autocomp" md-selected-item-change="search()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
+    <md-autocomplete class="autocomp" md-selected-item-change="autoCompOnSelect()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
       <md-item-template>
         <span md-highlight-text="searchText">{{item._id}} - {{item.name}}</span>
       </md-item-template>
@@ -13,12 +13,7 @@
     </md-autocomplete>
     <md-button class="md-raised md-primary search" ng-click="search()"> Search </md-button>
   </form>
-<!--
-  <form>
-      <input type="text" class="course-input" ng-model="courseID"  placeholder="course id" maxlength="20">
-      <md-button class="md-raised md-primary search" ng-click="search()"> Search </md-button>
-  </form>
--->
 </div>
 
-
+<div class="space-container">
+</div>

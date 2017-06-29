@@ -1,5 +1,6 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #f1f1f1
 }
 
 a {
@@ -31,6 +32,16 @@ a {
 .site-title:visited {
   color: white;
   text-decoration: none;
+}
+
+.space-container {
+  min-height: 50%;
+  background-color: #f1f1f1;
+}
+
+.site-footer {
+  text-align:center;
+  background-color: #f1f1f1;
 }
 
 pre {

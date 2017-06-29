@@ -12,6 +12,13 @@ angular.module('utcrApp')
       else
 	console.log("search string empty");
     }
+    $scope.autoCompOnSelect = function(){
+      setTimeout(function () {
+      console.log("route");
+        $location.url('/course/' + $scope.searchText);
+        $scope.$apply();
+      }, 100);
+    }
 
     $scope.query = function(searchText){
       //get autocomplete results from server
