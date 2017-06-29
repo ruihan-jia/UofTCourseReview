@@ -34,15 +34,6 @@ a {
   text-decoration: none;
 }
 
-.space-container {
-  min-height: 50%;
-  background-color: #f1f1f1;
-}
-
-.site-footer {
-  text-align:center;
-  background-color: #f1f1f1;
-}
 
 pre {
   white-space: normal;
@@ -56,7 +47,14 @@ pre {
 
 .home-body {
   text-align: center;
-  margin-top: 100px;
+  display: table;
+  height: 75%;
+  width: 100%;
+}
+
+.home-container {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 #searchForm {
@@ -72,6 +70,13 @@ pre {
   max-width: 400px;
 }
 
+.home-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
 
 
 
@@ -97,6 +102,11 @@ pre {
   min-width: 250px;
   max-width: 400px;
   vertical-align: middle;
+}
+
+.course-footer {
+  text-align: center;
+  margin-top: 40px;
 }
 
 /* for bug fix */
