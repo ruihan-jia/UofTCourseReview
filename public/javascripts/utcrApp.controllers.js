@@ -227,7 +227,7 @@ angular.module('utcrApp')
 	  console.log(review);
 
 	  $scope.submitLoading = true;
-	  if(review.hard != -1 && review.useful != -1 && review.interest != -1 && !angular.isUndefined($scope.formInfo.selectedYear)){
+	  if(review.hard != -1 && review.useful != -1 && review.interest != -1 && !angular.isUndefined($scope.formInfo.selectedYear) && review.prof != null && review.comment != null){
 	    review.$save().then(
 	      function(res) {
 		console.log(res)
@@ -256,6 +256,7 @@ angular.module('utcrApp')
             $mdDialog.hide();
 	  }
 	  else {
+	    $scope.submitLoading = false;
 	    $scope.MsgTitle = "Failed";
 	    $scope.MsgBody = "Please select all options";
 

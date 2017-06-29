@@ -123,6 +123,7 @@ router.get('/review', function(req, res, next) {
 
     var querycid = req.query.cid.toUpperCase();
     console.log("API: review query " + querycid);
+    console.log("req: " + req.hostname);
 
     var courseInfo;
 
