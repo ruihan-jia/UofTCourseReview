@@ -1,0 +1,15 @@
+
+
+This is the readme for uoft course review website
+
+the backend runs on nodejs and express
+the frontend is angularjs
+database is mongodb
+
+backend api are in routes/api.js
+which includes autocomplete, get course and review, and post review.
+
+there are only the home page and course page.
+The home page allows you to search for a course
+course page will display the info, ratings and reviews for that specific course.
+

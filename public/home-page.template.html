@@ -4,7 +4,7 @@
     <p>beta version. Search for your course and write a review.</p>
 
     <form id="searchForm" ng-submit="search()" ng-controller="HomeController">
-      <md-autocomplete class="autocomp" md-selected-item-change="autoCompOnSelect()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
+      <md-autocomplete class="autocomp" md-autoselect=true md-selected-item-change="autoCompOnSelect()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id">
         <md-item-template>
           <span md-highlight-text="searchText">{{item._id}} - {{item.name}}</span>
         </md-item-template>

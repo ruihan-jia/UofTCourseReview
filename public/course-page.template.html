@@ -5,7 +5,7 @@
 
   <div class="course-topSearch">
     <form name="searchFormTop" ng-submit="searchCourse()">
-      <md-autocomplete class="course-autocomp" md-selected-item-change="autoCompOnSelect()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id" md-min-length="2">
+      <md-autocomplete class="course-autocomp" md-autoselect=true md-selected-item-change="autoCompOnSelect()" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in query(searchText)" md-item-text="item._id" md-min-length="2">
         <md-item-template>
           <span md-highlight-text="searchText">{{item._id}} - {{item.name}}</span>
         </md-item-template>
@@ -76,7 +76,7 @@
 
       <md-input-container class="md-block comment-container">
         <label>Comment:</label>
-        <textarea ng-model="formInfo.reviewComment" md-maxlength="300" maxlength="300" rows="4" max-rows="6"></textarea>
+        <textarea ng-model="formInfo.reviewComment" md-maxlength="600" maxlength="600" rows="4" max-rows="6"></textarea>
       </md-input-container>
 
       <div class="form-buttons">
