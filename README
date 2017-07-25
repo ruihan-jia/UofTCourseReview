@@ -2,9 +2,12 @@
 
 This is the readme for uoft course review website
 
+website at: utcr.flowintent.com
+
 the backend runs on nodejs and express
 the frontend is angularjs
 database is mongodb
+data from cobalt uoft https://cobalt.qas.im/
 
 backend api are in routes/api.js
 which includes autocomplete, get course and review, and post review.
